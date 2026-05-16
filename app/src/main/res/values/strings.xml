@@ -23,11 +23,42 @@
     <string name="drawer_close">Close Drawer</string>
     <string name="drawer_not_connected">Not Connected</string>
     <string name="drawer_server">All Channels</string>
+    <string name="drawer_call">Call</string>
+    <string name="drawer_qr_code">QR Code</string>
+    <string name="server_qr_title">Server QR Code</string>
+    <string name="server_qr_summary">Scan to fill the server address and port. Username and password are not included.</string>
+    <string name="server_qr_unavailable">Connect to a server to show its QR code.</string>
+    <string name="server_qr_scan">Scan QR code</string>
+    <string name="server_qr_scan_stop">Stop scanning</string>
+    <string name="server_qr_scan_hint">Point the camera at a Mumla server QR code.</string>
+    <string name="server_qr_scan_invalid">This QR code does not contain a valid server address.</string>
+    <string name="server_qr_camera_denied">Camera permission is required to scan QR codes.</string>
+    <string name="server_not_connected_prompt">No server is currently connected.</string>
+    <string name="private_call_channel">Private calls</string>
+    <string name="private_call_incoming_title">Incoming call</string>
+    <string name="private_call_incoming_text">%1$s is calling</string>
+    <string name="private_call_outgoing_title">Calling</string>
+    <string name="private_call_outgoing_text">Waiting for %1$s to answer</string>
+    <string name="private_call_active_title">Private call</string>
+    <string name="private_call_active_text">In call with %1$s</string>
+    <string name="private_call_accept">Answer</string>
+    <string name="private_call_reject">Reject</string>
+    <string name="private_call_hangup">Hang up</string>
+    <string name="private_call_mic_on">Mic</string>
+    <string name="private_call_mic_off">Muted</string>
+    <string name="private_call_peer_mic_off">Microphone off for %1$s</string>
+    <string name="private_call_speaker">Speaker</string>
+    <string name="private_call_earpiece">Earpiece</string>
+    <string name="private_call_rejected">Call rejected</string>
+    <string name="private_call_ended">Call ended</string>
+    <string name="private_call_failed">Unable to start private call</string>
+    <string name="private_call_no_users">No other online users</string>
+    <string name="private_call_history_empty">No recent calls</string>
+    <string name="chat_history_empty">No recent chats</string>
     <string name="drawer_tokens">Access Tokens</string>
     <string name="drawer_pinned">Pinned Channels</string>
     <string name="drawer_header_servers">Servers</string>
     <string name="drawer_favorites">Favorites</string>
-    <string name="drawer_public">Public Servers</string>
 
     <!-- Chat formatting -->
     <string name="chat_message_to">%1$s → %2$s</string>
@@ -42,6 +73,18 @@
     <string name="user_menu_priority_speaker">Priority Speaker</string>
     <string name="user_menu_local_mute">Local Mute</string>
     <string name="user_menu_ignore_messages">Ignore Messages</string>
+    <string name="user_menu_private_call">Private Call</string>
+    <string name="user_profile_self_title">My profile</string>
+    <string name="user_profile_change_avatar">Change avatar</string>
+    <string name="user_profile_comment">Profile</string>
+    <string name="user_profile_comment_hint">Write a profile visible to other users</string>
+    <string name="user_profile_no_comment">No profile yet.</string>
+    <string name="user_profile_registered_id">Registered ID: %1$d</string>
+    <string name="user_profile_session_id">Session: %1$d</string>
+    <string name="user_profile_saved">Profile saved</string>
+    <string name="user_profile_avatar_failed">Unable to load avatar</string>
+    <string name="user_profile_registering">Registering this user before saving profile</string>
+    <string name="user_profile_register_denied">This server does not allow you to register yourself.</string>
     <string name="user_menu_change_comment">Change Comment</string>
     <string name="user_menu_view_comment">View Comment</string>
     <string name="user_menu_reset_comment">Reset Comment</string>
@@ -70,13 +113,6 @@
     <string name="server_info_current_bandwidth">Current %.1f kbit/s</string>
 
     <!-- Server matching -->
-    <string name="server_match">Find Server</string>
-    <string name="server_match_progress">Finding a server…</string>
-    <string name="server_match_found">Server found</string>
-    <string name="server_match_not_found">Couldn\'t find server</string>
-    <string name="server_match_expand_country">Couldn\'t find any optimal servers in your country. Search worldwide?</string>
-    <string name="server_match_info">Name: %1$s\nHost: %2$s:%3$d\nUsers: %4$d / %5$d\nVersion: %6$s \nCountry: %7$s \nLatency: %8$d ms</string>
-    <string name="server_match_description">Mumla can automatically find you an empty server, optimizing for location, version, and latency.</string>
 
     <!-- Common -->
     <string name="no_servers">Press \'Add\' from the action bar to add a server first.</string>
@@ -95,6 +131,7 @@
     <string name="save">Save</string>
     <string name="add">Add</string>
     <string name="chat">Chat</string>
+    <string name="members">Members</string>
     <string name="perm_denied">Permission denied.</string>
     <string name="connectionRefused">Connection refused</string>
     <string name="confirm_delete_server">Are you sure you want to delete this server?</string>
@@ -111,7 +148,6 @@
     <string name="search">Search</string>
     <string name="searchHint">Search channels and users</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Quick Connect</string>
     <string name="connect">Connect</string>
     <string name="connectToServer">Connect to Server</string>
     <string name="edit">Edit</string>
@@ -135,6 +171,7 @@
     <string name="country">Country</string>
     <string name="share">Share</string>
     <string name="description">Description</string>
+    <string name="channel_subchannels_count">%d subchannels</string>
     <string name="shareMessage">Join this Mumble server with Mumla. %s</string>
     <string name="status_notify_muted_and_deafened">Muted and deafened.</string>
     <string name="status_notify_muted">Muted.</string>
@@ -148,15 +185,16 @@
     <string name="action_settings">Settings</string>
     <string name="reconnect">Reconnect</string>
     <string name="reconnect_dialog_message">You are already connected to a server. Connect to this server instead?</string>
+    <string name="already_connected_to_server">You are already connected to this server.</string>
     <string name="confirm_reset_comment">Are you sure you want to reset the comment of user %s?</string>
     <string name="confirm">Confirm</string>
     <string name="expand">Expand</string>
+    <string name="collapse">Collapse</string>
     <string name="temporary">Temporary</string>
     <string name="position">Position</string>
     <string name="channel_edit">Edit Channel</string>
     <string name="channel_add">Add Channel</string>
     <string name="tts_failed">Could not start TTS</string>
-    <string name="mumble_url_parse_failed">Mumble URL is not valid.</string>
     <string name="first_run_generate_certificate_title">Welcome to Mumla</string>
     <string name="first_run_generate_certificate">Generating a certificate is highly recommended, and necessary for connection to some servers.</string>
     <string name="generate">Generate</string>
@@ -171,6 +209,7 @@
     <string name="cancelled">Canceled</string>
     <string name="current_chat_target">Current chat target</string>
     <string name="channel_join">Join</string>
+    <string name="context_channel_talk">Speak</string>
     <string name="certificate_info">Subject:\n%1$s\n\nValid from:\n%2$s\n\nValid to:\n%3$s\n\nDigest (SHA-1):\n%4$s\n\nDigest (SHA-256):\n%5$s</string>
     <string name="invalid_host">Invalid host</string>
     <string name="invalid_port_range">Invalid port (1-65535)</string>

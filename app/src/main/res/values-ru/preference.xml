@@ -99,6 +99,6 @@
     <string name="echoCancellationMethod">Эхоподавление</string>
     <string name="echoCancellationMethodSum">Снижает эхо от динамика вашего устройства во время разговора. Качество работы зависит от устройства.</string>
     <string name="echoCancellationDisabled">Отключено</string>
-    <string name="echoCancellationSystem">Системное</string>
+    <string name="echoCancellationWebRtc">WebRTC</string>
     <string name="language_system">Системный</string>
 </resources>

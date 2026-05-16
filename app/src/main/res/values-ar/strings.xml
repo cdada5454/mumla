@@ -15,7 +15,6 @@
     <string name="user_menu_ban">احظر</string>
     <string name="user_menu_kick">اطرد</string>
     <string name="chat_message_to">%1$s ← %2$s</string>
-    <string name="drawer_public">الخوادم العامة</string>
     <string name="drawer_favorites">المفضلة</string>
     <string name="drawer_header_servers">الخوادم</string>
     <string name="drawer_pinned">القنوات المثبتة</string>
@@ -43,16 +42,6 @@
     <string name="server_username">اسم المستخدم</string>
     <string name="server_password">كلمة المرور</string>
     <string name="no_servers">أولا أضف خادما عن طريق \'أضف\' من شريط الإجراءات.</string>
-    <string name="server_match_info">الاسم: %1$s
-\nالمضيف: %2$s:%3$d
-\nالمستخدمون: %4$d \\ %5$d
-\nالإصدار: %6$s
-\nالبلد: %7$s
-\nزمن الوصول: %8$d مثا</string>
-    <string name="server_match_not_found">تعذر العثور على خادم</string>
-    <string name="server_match_found">عُثر على خادم</string>
-    <string name="server_match">ابحث عن خادم</string>
-    <string name="server_match_progress">يبحث عن خادم…</string>
     <string name="server_info_current_bandwidth">الحالي %.1f كب\\ثا</string>
     <string name="server_info_max_bandwidth">الأقصى %.1f كب\\ثا</string>
     <string name="server_info_codec">ترميز: %s</string>
@@ -63,7 +52,6 @@
     <string name="addFavorite">أضفه للمفضلة</string>
     <string name="externalStorageUnavailable">وحدة التخزين الخارجية غير متوفرة ، لا يمكن تحميل الشهادة</string>
     <string name="reset_key">أعد تعيين المفاتيح</string>
-    <string name="server_match_expand_country">لم يُعثر على خادم مثالي في بلدك. أتريد البحث عالميا؟</string>
     <string name="chat_message_tts_short_link">(رابط لـ %1$s)</string>
     <string name="user_menu_priority_speaker">المتحدث ذو الأولوية</string>
     <string name="server_info_host">الخادم البعيد %1$s (المنفذ %2$d)</string>
@@ -79,7 +67,6 @@
     <string name="generateCertProgress">يولد الشهادة…</string>
     <string name="search">ابحث</string>
     <string name="searchHint">ابحث عن قنوات أو مستخدمين</string>
-    <string name="quickConnect">الاتصال السريع</string>
     <string name="edit">عدّل</string>
     <string name="messageToUser">اكتب رسالة لـ \'%s\'</string>
     <string name="messageToChannel">اكتب رسال في \'%s\'</string>
@@ -178,7 +165,6 @@
     <string name="trust_cleared">مُسحت قاعدة بيانات الاستيثاق</string>
     <string name="certificate_load_failed">تعذر حفظ الشهادة.</string>
     <string name="position">الموقع</string>
-    <string name="mumble_url_parse_failed">رابط مامبل غير صالح.</string>
     <string name="trust_added">أُضيفت شهادة لقاعدة بيانات الاستيثاق</string>
     <string name="certificate_import_success">أُستوردت الشهادة %s.</string>
 </resources>

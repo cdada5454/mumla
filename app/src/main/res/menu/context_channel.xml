@@ -24,6 +24,10 @@
         android:icon="@drawable/ic_action_move"
         app:showAsAction="ifRoom"
         />
+    <item android:id="@+id/context_channel_talk"
+        android:title="@string/context_channel_talk"
+        app:showAsAction="never"
+        />
     <item android:id="@+id/context_channel_add"
         android:title="@string/add"
         app:showAsAction="never"

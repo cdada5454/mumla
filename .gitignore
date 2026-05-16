@@ -1,9 +1,13 @@
 # Gradle / Android Studio
 build/
-.idea/
 .gradle/
+.gradle-user-home*/
+.android-user-home/
+.kotlin/
+.idea/
 *.iml
 signing.gradle
+signing-beta.gradle
 
 # Eclipse
 bin/
@@ -14,6 +18,19 @@ gen/
 
 # Android
 local.properties
+*.apk
+*.aab
+*.ap_
+captures/
 
 # Java
 *.class
+
+# Native dependency download cache; keep libraries/rnnoise and libraries/webrtc-apm source.
+libraries/_downloads/
+
+# Native build outputs are generated from source during the Android build.
+libraries/humla/src/main/libs/**/*.so
+libraries/humla/src/main/obj/
+libraries/rnnoise/lib/**/*.so
+libraries/webrtc-apm/lib/**/*.so

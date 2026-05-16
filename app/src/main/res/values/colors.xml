@@ -17,4 +17,25 @@
     <color name="ripple_talk_state_suppressed">#ff669900</color>
     <color name="ripple_talk_state_server_muted">#ff0099cc</color>
     <color name="ripple_talk_state_server_deafened">#ff0099cc</color>
+
+    <color name="chat_composer_surface">#eef1f6</color>
+    <color name="chat_bubble_incoming">#e7ebf3</color>
+    <color name="chat_bubble_outgoing">#4256c8</color>
+    <color name="chat_bubble_info">#d9e1ef</color>
+    <color name="chat_text_on_incoming">#1a1d24</color>
+    <color name="chat_text_on_outgoing">#ffffff</color>
+    <color name="chat_text_on_info">#243040</color>
+    <color name="chat_meta_on_surface">#667085</color>
+    <color name="chat_meta_on_outgoing">#d2dcff</color>
+    <color name="channel_tab_container_bg">#e2e7f0</color>
+    <color name="channel_tab_selected_bg">#3949ab</color>
+    <color name="channel_tab_selected_text">#ffffff</color>
+    <color name="channel_tab_unselected_text">#475467</color>
+
+    <color name="drawer_background">#e7e8dd</color>
+    <color name="drawer_item_background">#f5f4eb</color>
+    <color name="drawer_item_background_pressed">#ecebdd</color>
+    <color name="drawer_item_background_checked">#e1e0d1</color>
+    <color name="drawer_item_text">#1f211b</color>
+    <color name="drawer_header_text">#535649</color>
 </resources>

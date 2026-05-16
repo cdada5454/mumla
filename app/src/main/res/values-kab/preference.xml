@@ -29,6 +29,6 @@
     <string name="hot_corner_none">D arurmid</string>
     <string name="autoReconnect">Allus n tuqqna s wudem awurman</string>
     <string name="echoCancellationDisabled">Arurmid</string>
-    <string name="echoCancellationSystem">Anagraw</string>
+    <string name="echoCancellationWebRtc">WebRTC</string>
     <string name="forceTcp">TCP kan</string>
 </resources>

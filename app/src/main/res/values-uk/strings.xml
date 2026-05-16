@@ -6,12 +6,10 @@
     <string name="drawer_tokens">Токени доступу</string>
     <string name="drawer_header_servers">Сервери</string>
     <string name="drawer_favorites">Обрані</string>
-    <string name="drawer_public">Публічні сервери</string>
     <string name="drawer_open">Відкрити меню</string>
     <string name="drawer_pinned">Закріплені канали</string>
     <string name="user_menu_local_mute">Заглушити локально</string>
     <string name="user_menu_change_comment">Змінити коментар</string>
-    <string name="server_match_description">Mumla може автоматично знайти для вас порожній сервер, оптимізуючи розташування, версію та затримку.</string>
     <string name="user_menu_ignore_messages">Ігнорувати повідомлення</string>
     <string name="user_menu_view_comment">Переглянути коментар</string>
     <string name="user_menu_reset_comment">Очистити коментар</string>
@@ -43,17 +41,6 @@
     <string name="server_info_codec">Кодек: %s</string>
     <string name="server_info_max_bandwidth">Максимальна %.1f кбіт/с</string>
     <string name="server_info_current_bandwidth">Поточна %.1f кбіт/с</string>
-    <string name="server_match">Знайти сервер</string>
-    <string name="server_match_progress">Пошук сервера…</string>
-    <string name="server_match_found">Сервер знайдено</string>
-    <string name="server_match_not_found">Не вдалося знайти сервер</string>
-    <string name="server_match_expand_country">Не вдалося знайти оптимальні сервери у вашій країні. Шукати по всьому світу?</string>
-    <string name="server_match_info">Назва: %1$s
-\nВузол: %2$s:%3$d
-\nКористувачів: %4$d/%5$d
-\nВерсія: %6$s
-\nКраїна: %7$s
-\nЗатримка: %8$d мс</string>
     <string name="no_servers">Спочатку додайте сервер, натиснувши \'Додати\' в панелі керування.</string>
     <string name="server_host">Адреса</string>
     <string name="server_label">Позначка</string>
@@ -105,7 +92,6 @@
     <string name="channel_edit">Редагувати канал</string>
     <string name="channel_add">Додати канал</string>
     <string name="tts_failed">Не вдалося запустити TTS</string>
-    <string name="mumble_url_parse_failed">Невірне Mumble-посилання.</string>
     <string name="first_run_generate_certificate_title">Ласкаво просимо до Mumla</string>
     <string name="first_run_generate_certificate">Наполягаємо на створенні сертифіката, так як він необхідний для підключення до деяких серверів.</string>
     <string name="generate">Згенерувати</string>
@@ -177,7 +163,6 @@
     <string name="search">Пошук</string>
     <string name="searchHint">Пошук каналів і користувачів</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Швидке підключення</string>
     <string name="connect">Підключитися</string>
     <string name="connectToServer">Підключитися до сервера</string>
     <string name="edit">Редагувати</string>

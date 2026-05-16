@@ -97,5 +97,5 @@
     <string name="echoCancellationMethod">Yankı Giderme</string>
     <string name="echoCancellationMethodSum">Konuşurken aygıtınızın hoparlöründen gelen yankıyı azaltın. Kalite, aygıta göre değişebilir.</string>
     <string name="echoCancellationDisabled">Devre dışı</string>
-    <string name="echoCancellationSystem">Sistem</string>
+    <string name="echoCancellationWebRtc">WebRTC</string>
 </resources>

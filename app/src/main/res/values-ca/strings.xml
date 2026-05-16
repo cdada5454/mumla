@@ -44,11 +44,6 @@
     <string name="server_label">Etiqueta</string>
     <string name="server_host">Adreça</string>
     <string name="server_username">Nom d\'usuari</string>
-    <string name="server_match_description">El Mumla pot cercar automàticament un servidor buit, optimitzant ubicació, versió i latència.</string>
-    <string name="server_match_expand_country">No s\'ha pogut trobar cap servidor òptim al vostre país. Busquem arreu del món\?</string>
-    <string name="server_match_not_found">No s\'ha trobat el servidor</string>
-    <string name="server_match_found">S\'ha trobat el servidor</string>
-    <string name="server_match">Cerca un servidor</string>
     <string name="server_info_current_bandwidth">Actual %.1f kbit/s</string>
     <string name="server_info_max_bandwidth">Màxim %.1f kbit/s</string>
     <string name="server_info_host">Amfitrió remot %1$s (port %2$d)</string>
@@ -64,7 +59,6 @@
     <string name="user_menu_move">Mou</string>
     <string name="user_menu_mute">Silencia</string>
     <string name="user_menu_kick">Expulsa</string>
-    <string name="drawer_public">Servidors públics</string>
     <string name="drawer_favorites">Preferits</string>
     <string name="drawer_header_servers">Servidors</string>
     <string name="drawer_pinned">Canals fixats</string>
@@ -78,13 +72,6 @@
     <string name="server_port">Port</string>
     <string name="server_password">Contrasenya</string>
     <string name="no_servers">Premeu «Afegeix» des de la barra d\'acció per afegir un servidor per començar.</string>
-    <string name="server_match_info">Nom: %1$s
-\nAmfitrió: %2$s:%3$d
-\nUsuaris: %4$d / %5$d
-\nVersió: %6$s
-\nPaís: %7$s
-\nLatència: %8$d ms</string>
-    <string name="server_match_progress">S\'està cercant un servidor…</string>
     <string name="server_info_codec">Còdec: %s</string>
     <string name="server_info_latency">%.2f ms de latència</string>
     <string name="server_info_version">%1$s (%2$s)</string>
@@ -101,7 +88,6 @@
     <string name="chat_message_tts_short_link">(Enllaç a %1$s)</string>
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="connectToServer">Connecta al servidor</string>
-    <string name="quickConnect">Connecta ràpidament</string>
     <string name="messageToChannel">Escriviu un missatge al canal \'%s\'</string>
     <string name="messageToUser">Escriviu un missatge a \'%s\'</string>
     <string name="offline">Fora de línia</string>
@@ -132,7 +118,6 @@
     <string name="generate">Genera</string>
     <string name="first_run_generate_certificate">Es recomana generar un certificat. Alguns servidors demanen un certificat.</string>
     <string name="first_run_generate_certificate_title">Benvinguts al Mumla</string>
-    <string name="mumble_url_parse_failed">No s\'ha pogut processar la URL de Mumble.</string>
     <string name="tts_failed">No s\'ha pogut iniciar TTS</string>
     <string name="channel_add">Afegeix un canal</string>
     <string name="channel_edit">Edita el canal</string>

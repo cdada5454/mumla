@@ -1,0 +1,11 @@
+WebRTC AudioProcessing source vendored from:
+
+Repository: https://chromium.googlesource.com/external/webrtc/trunk/webrtc.git
+Package lineage: Linux-packaging-friendly WebRTC AudioProcessing subset
+Version: not recorded by the previous source import
+Commit: not recorded by the previous source import
+
+Update notes:
+- Replace this directory with the desired WebRTC AudioProcessing source subset.
+- Keep CMakeLists.txt or re-apply the local Android CMake wrapper.
+- Do not commit generated libraries or archives.

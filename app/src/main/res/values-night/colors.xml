@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="chat_composer_surface">#1f2530</color>
+    <color name="chat_bubble_incoming">#262d3a</color>
+    <color name="chat_bubble_outgoing">#2f458f</color>
+    <color name="chat_bubble_info">#273445</color>
+    <color name="chat_text_on_incoming">#e0e5ef</color>
+    <color name="chat_text_on_outgoing">#f2f5ff</color>
+    <color name="chat_text_on_info">#d3e0f2</color>
+    <color name="chat_meta_on_surface">#9aa6bc</color>
+    <color name="chat_meta_on_outgoing">#becfff</color>
+    <color name="channel_tab_container_bg">#1b222d</color>
+    <color name="channel_tab_selected_bg">#0093eb</color>
+    <color name="channel_tab_selected_text">#f7fbff</color>
+    <color name="channel_tab_unselected_text">#9aa6bc</color>
+
+    <color name="drawer_background">#20241f</color>
+    <color name="drawer_item_background">#2b3029</color>
+    <color name="drawer_item_background_pressed">#353b33</color>
+    <color name="drawer_item_background_checked">#3f463d</color>
+    <color name="drawer_item_text">#e8ecdf</color>
+    <color name="drawer_header_text">#aeb6a2</color>
+</resources>

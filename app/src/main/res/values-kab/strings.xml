@@ -51,17 +51,14 @@
     <string name="drawer_not_connected">Ur yeqqin ara</string>
     <string name="drawer_server">Akk ibuda</string>
     <string name="drawer_tokens">Tiddas n wadduf</string>
-    <string name="drawer_public">Iqeddacen izuyaz</string>
     <string name="user_menu_view_comment">Wali awennit</string>
     <string name="comment_edit_source">Ẓreg aɣbalu</string>
     <string name="comment_view_source">Wali aɣbalu</string>
     <string name="server_info_protocol">Aneggaf %s.</string>
     <string name="server_info_version">%1$s (%2$s)</string>
     <string name="server_info_codec">Akudak: %s</string>
-    <string name="server_match">Af-d aqeddac</string>
     <string name="messageReceived">Izen amaynut</string>
     <string name="generateCertProgress">Asarew n uselkin…</string>
-    <string name="quickConnect">Tuqqna taruradt</string>
     <string name="clearChat">Sfeḍ adiwenni</string>
     <string name="mumlaConnected">Mumla d uqqin</string>
     <string name="mumlaConnecting">Mumla iteqqen…</string>
@@ -75,7 +72,6 @@
     <string name="app_news">D acu i d amaynut</string>
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(Aseɣwen ɣer %1$s)</string>
-    <string name="server_match_progress">Yettnadi aqeddac…</string>
     <string name="connecting_to_server">Tuqqna ɣer %s…</string>
     <string name="accessAdd">Rnu tiddest n wadduf</string>
     <string name="connectToServer">Tuqqna ɣer uqeddac</string>
@@ -83,7 +79,6 @@
     <string name="disconnect">Gzem tuqqna</string>
     <string name="drawer_header_servers">Iqeddacen</string>
     <string name="drawer_favorites">Imenyafen</string>
-    <string name="server_match_found">Yettwaf uqeddac</string>
     <string name="perm_denied">Tettwagi tsiregt.</string>
     <string name="connectionRefused">Tettwagi tuqqna</string>
     <plurals name="search_channel_users">
@@ -96,7 +91,6 @@
         <item quantity="other">%d n yiznan imaynuten</item>
     </plurals>
     <string name="messageToUser">Aru-yas izen i useqdac \'%s\'</string>
-    <string name="server_match_info">Isem: %1$s\nAsenneftaɣ: %2$s:%3$d\nIseqdacen: %4$d / %5$d\nLqem: %6$s \nTamurt: %7$s \nAkud n ugani: %8$d ms</string>
     <string name="user_menu_mute">Sgugem</string>
     <string name="user_menu_ignore_messages">Zgel iznan</string>
     <string name="user_menu_change_comment">Beddel awennit</string>
@@ -117,7 +111,6 @@
     <string name="export_success">Yettusifeḍ uselkin ɣer %s.</string>
     <string name="donation_thanks">Tanemmirt imi d-muddeḍ tawsa.</string>
     <string name="messageToChannel">Aru izen deg ubadu \'%s\'</string>
-    <string name="mumble_url_parse_failed">URL n Mumble d tarameɣtut.</string>
     <string name="change_requires_reconnect">Alles tuqqna akken ad tesqedceḍ iɣewwaren imaynuten.</string>
     <string name="shareMessage">Kcem-d ɣer uqeddac-a n Mumble s Mumla. %s</string>
     <string name="disconnectSure">S tidet tebɣiḍ ad tgzemeḍ tuqqna seg %s?</string>
@@ -132,5 +125,4 @@
     <string name="invalid_host">Asenneftaɣ arameɣtu</string>
     <string name="cancel_reconnect">Ḥbes allus n tuqqna</string>
     <string name="invalid_port_range">Tawwurt tarameɣtut (1-65535)</string>
-    <string name="server_match_not_found">Ur nufi ara aqeddac-nni</string>
 </resources>

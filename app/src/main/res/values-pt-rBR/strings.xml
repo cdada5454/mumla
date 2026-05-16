@@ -3,7 +3,6 @@
     <string name="user_menu_reset_comment">Redefinir Comentário</string>
     <string name="change_requires_reconnect">Reconecte para usar as novas configurações.</string>
     <string name="first_run_generate_certificate_title">Bem-vindo ao Mumla</string>
-    <string name="mumble_url_parse_failed">A URL do Mumble não é válida.</string>
     <string name="confirm_reset_comment">Tem certeza de que deseja redefinir o comentário do usuário %s\?</string>
     <string name="reconnect_dialog_message">Você já está conectado a um servidor. Em vez disso, conectar-se a este servidor\?</string>
     <string name="action_settings">Configurações</string>
@@ -13,7 +12,6 @@
     <string name="status_notify_muted_and_deafened">Silenciado e ensurdecido.</string>
     <string name="clearChat">Limpar Conversa</string>
     <string name="delete">Excluir</string>
-    <string name="quickConnect">Conexão Rápida</string>
     <string name="generateCertSuccess">Seu certificado foi configurado e salvo como %s</string>
     <string name="user_menu_kick">Expulsar</string>
     <string name="confirm_delete_channel">Tem certeza de que deseja excluir este canal\?</string>
@@ -22,14 +20,6 @@
     <string name="deafen">Ensurdecer</string>
     <string name="mute">Silenciar</string>
     <string name="server_label">Rótulo</string>
-    <string name="server_match_info">Nome: %1$s
-\nHost: %2$s:%3$d
-\nUsuários: %4$d / %5$d
-\nVersão: %6$s
-\nPaís: %7$s
-\nLatência: %8$d ms</string>
-    <string name="server_match_progress">Encontrando um servidor…</string>
-    <string name="server_match">Encontrar Servidor</string>
     <string name="server_info_version">%1$s (%2$s)</string>
     <string name="audio_bandwidth">Largura de banda do áudio</string>
     <string name="comment_edit_source">Editar fonte</string>
@@ -135,10 +125,6 @@
     <string name="server_username">Nome de usuário</string>
     <string name="server_password">Senha</string>
     <string name="no_servers">Pressione \'Adicionar\' na barra de ação para adicionar um servidor primeiro.</string>
-    <string name="server_match_description">O Mumla pode encontrar automaticamente um servidor vazio para você, otimizando por localização, versão e latência.</string>
-    <string name="server_match_expand_country">Não foi possível encontrar nenhum servidor ideal em seu país. Pesquisar em todo o mundo\?</string>
-    <string name="server_match_not_found">Servidor não encontrado</string>
-    <string name="server_match_found">Servidor encontrado</string>
     <string name="server_info_max_bandwidth">Máximo %.1f kbit/s</string>
     <string name="server_info_codec">Codec: %s</string>
     <string name="server_info_latency">latência %.2f ms</string>
@@ -155,7 +141,6 @@
     <string name="user_menu_move">Mover</string>
     <string name="user_menu_mute">Silenciar</string>
     <string name="user_menu_ban">Banir</string>
-    <string name="drawer_public">Servidores Públicos</string>
     <string name="drawer_favorites">Favoritos</string>
     <string name="drawer_header_servers">Servidores</string>
     <string name="drawer_pinned">Canais Fixados</string>

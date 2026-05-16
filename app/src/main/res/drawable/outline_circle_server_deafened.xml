@@ -30,5 +30,10 @@
                 android:height="48dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_action_audio_muted" />
+    <item
+        android:bottom="12dp"
+        android:drawable="@drawable/ic_action_audio_muted"
+        android:left="12dp"
+        android:right="12dp"
+        android:top="12dp" />
 </layer-list>

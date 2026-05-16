@@ -1,0 +1,14 @@
+Opus source vendored from:
+
+Repository: https://gitlab.xiph.org/xiph/opus
+Version: 1.1-beta
+Commit: not recorded by the previous source import
+
+Version evidence:
+- version.mk contains PACKAGE_VERSION = "1.1-beta".
+
+Update notes:
+- Replace this directory with the desired Opus source release or commit.
+- Keep any Android build integration in libraries/humla/src/main/cpp/CMakeLists.txt
+  and libraries/humla/src/main/jni/Android.mk in sync.
+- Do not commit generated libraries or archives.

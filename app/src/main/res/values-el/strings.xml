@@ -25,16 +25,6 @@
     <string name="server_info_codec">Κωδικοποιητής: %s</string>
     <string name="server_info_max_bandwidth">Μέγιστα %.1f kbit/s</string>
     <string name="server_info_current_bandwidth">Τρέχων %.1f kbit/s</string>
-    <string name="server_match_found">Διακομιστής ευρέθη</string>
-    <string name="server_match_not_found">Δεν ήταν δυνατή η εύρεση διακομιστή</string>
-    <string name="server_match_expand_country">Δεν μπόρεσαν να βρεθούν βέλτιστοι διακομιστές στη χώρα σας. Αναζήτηση παγκοσμίως;</string>
-    <string name="server_match_info">Όνομα: %1$s
-\nΑπομακρυσμένος κεντρικός υπολογιστής: %2$s: %3$d
-\nΧρήστες: %4$d / %5$d
-\nΈκδοση: %6$s
-\nΧώρα: %7$s
-\nΚαθυστέρηση: %8$d ms</string>
-    <string name="server_match_description">Το Mumla μπορεί να βρει αυτόματα έναν κενό διακομιστή, βελτιστοποιώντας την τοποθεσία, την έκδοση και την καθυστέρηση.</string>
     <string name="no_servers">Πατήστε \'Προσθήκη\' από τη γραμμή δράσης για να προσθέσετε πρώτα ένα διακομιστή.</string>
     <string name="server_password">Κωδικός πρόσβασης</string>
     <string name="server_username">Όνομα χρήστη</string>
@@ -58,7 +48,6 @@
     <string name="generateCertProgress">Γίνεται δημιουργία πιστοποιητικού…</string>
     <string name="search">Αναζήτηση</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Γρήγορη σύνδεση</string>
     <string name="connect">Σύνδεση</string>
     <string name="connectToServer">Σύνδεση στο διακομιστή</string>
     <string name="edit">Επεξεργασία</string>
@@ -89,7 +78,6 @@
     <string name="confirm">Επιβεβαίωση</string>
     <string name="temporary">Προσωρινό</string>
     <string name="tts_failed">Δεν μπόρεσε να γίνει εκκίνηση το TTS</string>
-    <string name="mumble_url_parse_failed">Το Mumble URL δεν ισχύει.</string>
     <string name="overlay">Εμφάνιση πάνω από άλλες εφαρμογές</string>
     <string name="first_run_generate_certificate_title">Καλώς ήλθατε στο Mumla</string>
     <string name="generate">Δημιουργία</string>
@@ -146,7 +134,6 @@
     <string name="drawer_not_connected">Μη συνδεδεμένος</string>
     <string name="drawer_close">Κλείσιμο συρταριού</string>
     <string name="drawer_server">Όλα τα κανάλια</string>
-    <string name="drawer_public">Δημόσιοι διακομιστές</string>
     <string name="user_menu_local_mute">Τοπική σίγαση</string>
     <string name="user_menu_register">Εγγραφή</string>
     <string name="user_menu_priority_speaker">Ομιλητής προτεραιότητας</string>
@@ -155,8 +142,6 @@
     <string name="comment_view">Προβολή</string>
     <string name="comment_view_source">Προβολή πηγής</string>
     <string name="control_channel">Έλεγχος καναλιού</string>
-    <string name="server_match">Εύρεση διακομιστή</string>
-    <string name="server_match_progress">Γίνεται εύρεση διακομιστή…</string>
     <string name="deafen">Κώφωση</string>
     <string name="server_label">Επιγραφή</string>
     <string name="disconnect">Αποσύνδεση</string>

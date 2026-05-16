@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="drawer_public">Genel Sunucular</string>
     <string name="drawer_favorites">Sık Kullanılanlar</string>
     <string name="drawer_header_servers">Sunucular</string>
     <string name="drawer_server">Tüm Kanallar</string>
@@ -77,7 +76,6 @@
     <string name="generate">Oluştur</string>
     <string name="first_run_generate_certificate">Sertifika oluşturulması şiddetle tavsiye edilir ve bazı sunuculara bağlanmak için gereklidir.</string>
     <string name="first_run_generate_certificate_title">Mumla\'ya hoş geldiniz</string>
-    <string name="mumble_url_parse_failed">Mumble URL\'si geçerli değil.</string>
     <string name="tts_failed">TTS başlatılamadı</string>
     <string name="channel_add">Kanal Ekle</string>
     <string name="channel_edit">Kanalı Düzenle</string>
@@ -122,7 +120,6 @@
     <string name="edit">Düzenle</string>
     <string name="connectToServer">Sunucuya Bağlan</string>
     <string name="connect">Bağlan</string>
-    <string name="quickConnect">Hızlı Bağlan</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="searchHint">Kanalları ve kullanıcıları arayın</string>
     <string name="search">Ara</string>
@@ -153,20 +150,8 @@
     <string name="server_username">Kullanıcı Adı</string>
     <string name="server_password">Parola</string>
     <string name="no_servers">Önce bir sunucu eklemek için eylem çubuğundan \'Ekle\' düğmesine basın.</string>
-    <string name="server_match_description">Mumla konuma, sürüme ve gecikmeye göre sizin için en iyi boş sunucuyu otomatik olarak bulabilir.</string>
     <string name="chat_message_tts_short_link">(%1$s için bağlantı)</string>
     <string name="perm_denied">İzin reddedildi.</string>
-    <string name="server_match_info">Ad: %1$s
-\nAna Makine: %2$s:%3$d
-\nKullanıcılar: %4$d / %5$d
-\nSürüm: %6$s
-\nÜlke: %7$s
-\nGecikme: %8$d ms</string>
-    <string name="server_match_expand_country">Ülkenizde uygun bir sunucu bulunamadı. Dünya genelinde aransın mı\?</string>
-    <string name="server_match_not_found">Sunucu bulunamadı</string>
-    <string name="server_match_found">Sunucu bulundu</string>
-    <string name="server_match_progress">Sunucu bulunuyor…</string>
-    <string name="server_match">Sunucu Bul</string>
     <string name="server_info_current_bandwidth">Şu anda %.1f kbit/s</string>
     <string name="server_info_max_bandwidth">En fazla %.1f kbit/s</string>
     <string name="server_info_codec">Codec: %s</string>

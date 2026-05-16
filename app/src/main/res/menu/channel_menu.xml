@@ -17,7 +17,18 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mumla="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_mute_button"
+        android:icon="@drawable/ic_action_microphone"
+        android:title="@string/mute"
+        mumla:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_deafen_button"
+        android:icon="@drawable/ic_action_audio"
+        android:title="@string/deafen"
+        mumla:showAsAction="ifRoom" />
     <item android:title="@string/audioInputMethod">
         <menu>
             <item android:id="@+id/menu_input_voice" android:title="@string/inputMethodVoice"/>

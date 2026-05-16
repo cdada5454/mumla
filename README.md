@@ -61,13 +61,22 @@ If you want to help out translating Mumla, the project is [on
 Weblate](https://hosted.weblate.org/engage/mumla/) -- thanks for
 gratis hosting of our libre project!
 
-## Repository submodules
+## Source dependencies
 
-Note that this Mumla git repository has submodule(s). You either need
-to clone it using `git clone --recursive`, or you need to get the
-submodule(s) in place after cloning:
+Third-party libraries used by the Android build are kept as source in
+`libraries/`. Do not commit prebuilt native or Java library artifacts such as
+`.so`, `.a`, `.aar`, or `.jar` files.
 
-    git submodule update --init --recursive
+The native audio dependencies are built from:
+
+    libraries/oboe
+    libraries/webrtc-apm
+    libraries/rnnoise
+    libraries/humla/src/main/jni
+
+The SpongyCastle fork is included as a composite Gradle build at:
+
+    libraries/humla/libs/humla-spongycastle
 
 ## Building on GNU/Linux
 
@@ -78,15 +87,6 @@ JAVA_HOME=/usr/lib/jvm/java-21-openjdk`.
 The Android SDK need to be specified as usual, for example by setting
 `ANDROID_SDK_ROOT`, or writing it to local.properties as `echo
 >local.properties sdk.dir=/home/user/Android/Sdk`
-
-TODO: humla-spongycastle should be built as a sub-project of Humla's
-Gradle, but currently isn't.
-
-    git submodule update --init --recursive
-
-    pushd libraries/humla/libs/humla-spongycastle
-    ../../gradlew jar
-    popd
 
     ./gradlew assembleDebug
 

@@ -1,0 +1,8 @@
+Humla source vendored from:
+
+Repository: https://gitlab.com/quite/humla.git
+Submodule commit recorded by this repository: 7966f3828d6ed87ef29c517abfade6ad7998cdc5
+
+The Git submodule metadata was removed so this directory is checked in as
+source. Build outputs from this module must stay ignored and must not be
+committed as prebuilt library artifacts.

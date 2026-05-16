@@ -1,0 +1,11 @@
+RNNoise source vendored from:
+
+Repository: https://gitlab.xiph.org/xiph/rnnoise
+Version: upstream does not expose a version string in this source snapshot
+Commit: not recorded by the previous source import
+
+Update notes:
+- Replace this directory with a fresh source snapshot from the repository.
+- Keep CMakeLists.txt or re-apply the local Android CMake wrapper if upstream
+  does not provide one matching this project.
+- Do not commit generated libraries or archives.

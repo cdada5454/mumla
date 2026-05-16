@@ -22,3 +22,67 @@
 
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21'
+        classpath 'org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:2.0.21'
+    }
+}
+
+tasks.register('checkNoPrebuiltLibraries') {
+    group = 'verification'
+    description = 'Fails when checked-in prebuilt library artifacts are found in the source tree.'
+
+    doLast {
+        def allowedFiles = [
+                file('gradle/wrapper/gradle-wrapper.jar').canonicalFile
+        ] as Set
+
+        def prebuiltArtifacts = fileTree(projectDir) {
+            include '**/*.a'
+            include '**/*.aar'
+            include '**/*.aab'
+            include '**/*.ap_'
+            include '**/*.apk'
+            include '**/*.dll'
+            include '**/*.dylib'
+            include '**/*.jar'
+            include '**/*.so'
+            include '**/*.zip'
+
+            exclude '**/.git/**'
+            exclude '**/.gradle/**'
+            exclude '**/.idea/**'
+            exclude '**/.cxx/**'
+            exclude '**/build/**'
+            exclude 'libraries/_downloads/**'
+            exclude 'libraries/humla/src/main/libs/**'
+            exclude 'libraries/humla/src/main/obj/**'
+            exclude 'libraries/rnnoise/lib/**'
+            exclude 'libraries/webrtc-apm/lib/**'
+        }.files.findAll { candidate ->
+            !allowedFiles.contains(candidate.canonicalFile)
+        }.sort { it.path }
+
+        if (!prebuiltArtifacts.empty) {
+            throw new GradleException(
+                    "Prebuilt library artifacts are not allowed in source. " +
+                            "Build them from source instead:\n" +
+                            prebuiltArtifacts.collect { " - ${projectDir.toPath().relativize(it.toPath())}" }.join('\n'))
+        }
+    }
+}
+
+gradle.projectsEvaluated {
+    allprojects { checkedProject ->
+        def checkTask = checkedProject.tasks.findByName('check')
+        if (checkTask != null) {
+            checkTask.dependsOn(rootProject.tasks.named('checkNoPrebuiltLibraries'))
+        }
+    }
+}

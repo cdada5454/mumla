@@ -73,7 +73,6 @@
     <string name="generate">Vygenerovat</string>
     <string name="first_run_generate_certificate">Generování certifikátu se důrazně doporučuje a je nezbytné pro připojení k některým serverům.</string>
     <string name="first_run_generate_certificate_title">Vítejte v Mumla</string>
-    <string name="mumble_url_parse_failed">Adresa URL služby Mumble není platná.</string>
     <string name="tts_failed">Nelze spustit převodník textu na řeč</string>
     <string name="channel_add">Přidat kanál</string>
     <string name="channel_edit">Upravit kanál</string>
@@ -119,7 +118,6 @@
     <string name="edit">Upravit</string>
     <string name="connectToServer">Připojit k serveru</string>
     <string name="connect">Připojit</string>
-    <string name="quickConnect">Rychlé připojení</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="searchHint">Prohledat kanály a uživatele</string>
     <string name="search">Hledat</string>
@@ -151,18 +149,6 @@
     <string name="server_username">Uživatelské jméno</string>
     <string name="server_password">Heslo</string>
     <string name="no_servers">Stiskněte „Přidat“ v horním panelu pro přidání serveru.</string>
-    <string name="server_match_description">Mumla pro vás automaticky může najít prázdný server s optimální lokací, verzí a latencí.</string>
-    <string name="server_match_info">Jméno: %1$s
-\nHost: %2$s:%3$d
-\nUživatelé: %4$d / %5$d
-\nVerze: %6$s
-\nZemě: %7$s
-\nLatence: %8$d ms</string>
-    <string name="server_match_expand_country">Nebylo možné najít žádné optimální servery ve vaší zemi. Hledat celosvětově\?</string>
-    <string name="server_match_not_found">Server nenalezen</string>
-    <string name="server_match_found">Server nalezen</string>
-    <string name="server_match_progress">Vyhledávání serveru…</string>
-    <string name="server_match">Najít server</string>
     <string name="server_info_current_bandwidth">Aktuální %.1f kbit/s</string>
     <string name="server_info_codec">Kodek: %s</string>
     <string name="server_info_host">Vzdálený host %1$s (port %2$d)</string>
@@ -199,6 +185,5 @@
     <string name="user_menu_kick">Vyhodit</string>
     <string name="chat_message_tts_short_link">(Odkaz na %1$s)</string>
     <string name="chat_message_to">%1$s → %2$s</string>
-    <string name="drawer_public">Veřejné servery</string>
     <string name="image_confirm_send">Poslat obrázek\?</string>
 </resources>

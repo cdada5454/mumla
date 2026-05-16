@@ -1,15 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Drawer pane -->
     <string name="drawer_open">打开侧栏</string>
     <string name="drawer_close">关闭侧栏</string>
     <string name="drawer_not_connected">未连接</string>
     <string name="drawer_server">所有频道</string>
+    <string name="drawer_call">通话</string>
+    <string name="drawer_qr_code">二维码</string>
+    <string name="server_qr_title">服务器二维码</string>
+    <string name="server_qr_summary">扫码后自动填写服务器地址和端口，不包含用户名和密码。</string>
+    <string name="server_qr_unavailable">连接到服务器后才能显示二维码。</string>
+    <string name="server_qr_scan">扫描二维码</string>
+    <string name="server_qr_scan_stop">停止扫描</string>
+    <string name="server_qr_scan_hint">将摄像头对准 Mumla 服务器二维码。</string>
+    <string name="server_qr_scan_invalid">这个二维码不包含有效的服务器地址。</string>
+    <string name="server_qr_camera_denied">需要相机权限才能扫描二维码。</string>
+    <string name="server_not_connected_prompt">当前还未连接服务器</string>
+    <string name="private_call_channel">私聊通话</string>
+    <string name="private_call_incoming_title">来电</string>
+    <string name="private_call_incoming_text">%1$s 正在呼叫你</string>
+    <string name="private_call_outgoing_title">正在呼叫</string>
+    <string name="private_call_outgoing_text">等待 %1$s 接听</string>
+    <string name="private_call_active_title">私聊通话</string>
+    <string name="private_call_active_text">正在与 %1$s 通话</string>
+    <string name="private_call_accept">接听</string>
+    <string name="private_call_reject">拒绝</string>
+    <string name="private_call_hangup">挂断</string>
+    <string name="private_call_mic_on">麦克风</string>
+    <string name="private_call_mic_off">已静音</string>
+    <string name="private_call_peer_mic_off">%1$s 的麦克风已关闭</string>
+    <string name="private_call_speaker">外放</string>
+    <string name="private_call_earpiece">听筒</string>
+    <string name="private_call_rejected">对方已拒绝</string>
+    <string name="private_call_ended">通话已结束</string>
+    <string name="private_call_failed">无法发起私聊通话</string>
+    <string name="private_call_no_users">没有其他在线用户</string>
+    <string name="private_call_history_empty">暂无最近通话</string>
+    <string name="chat_history_empty">暂无最近聊天</string>
     <string name="drawer_tokens">访问令牌</string>
     <string name="drawer_pinned">已钉选频道</string>
     <string name="drawer_header_servers">服务器</string>
     <string name="drawer_favorites">收藏</string>
-    <string name="drawer_public">公共服务器</string>
     <!-- Chat formatting -->
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(链接到 %1$s)</string>
@@ -22,6 +53,18 @@
     <string name="user_menu_priority_speaker">优先发言人</string>
     <string name="user_menu_local_mute">本地静音</string>
     <string name="user_menu_ignore_messages">忽略消息</string>
+    <string name="user_menu_private_call">发起私聊通话</string>
+    <string name="user_profile_self_title">我的主页</string>
+    <string name="user_profile_change_avatar">更换头像</string>
+    <string name="user_profile_comment">个人简介</string>
+    <string name="user_profile_comment_hint">填写其他用户可见的个人简介</string>
+    <string name="user_profile_no_comment">还没有个人简介。</string>
+    <string name="user_profile_registered_id">注册 ID：%1$d</string>
+    <string name="user_profile_session_id">会话：%1$d</string>
+    <string name="user_profile_saved">个人信息已保存</string>
+    <string name="user_profile_avatar_failed">无法读取头像</string>
+    <string name="user_profile_registering">正在先注册用户，再保存个人信息</string>
+    <string name="user_profile_register_denied">这个服务器不允许你自行注册。</string>
     <string name="user_menu_change_comment">更改简介</string>
     <string name="user_menu_view_comment">查看简介</string>
     <string name="user_menu_reset_comment">重置简介</string>
@@ -46,18 +89,6 @@
     <string name="server_info_max_bandwidth">最大 %.1f 千比特/秒</string>
     <string name="server_info_current_bandwidth">当前 %.1f 千比特/秒</string>
     <!-- Server matching -->
-    <string name="server_match">查找服务器</string>
-    <string name="server_match_progress">正在查找服务器…</string>
-    <string name="server_match_found">找到服务器</string>
-    <string name="server_match_not_found">无法找到服务器</string>
-    <string name="server_match_expand_country">无法在您的区域找到最佳服务器。是否在全球范围内搜索？</string>
-    <string name="server_match_info">名称：%1$s
-\n主机：%2$s:%3$d
-\n用户：%4$d / %5$d
-\n版本：%6$s
-\n区域：%7$s
-\n延迟：%8$d 毫秒</string>
-    <string name="server_match_description">Mumla 可以根据区域、版本与延迟自动为您寻找最佳的空服务器。</string>
     <!-- Common -->
     <string name="no_servers">请先点击操作栏上的“添加”按钮添加一个服务器。</string>
     <string name="server_password">密码</string>
@@ -75,6 +106,7 @@
     <string name="save">保存</string>
     <string name="add">添加</string>
     <string name="chat">聊天</string>
+    <string name="members">成员</string>
     <string name="perm_denied">权限被拒绝。</string>
     <string name="connectionRefused">连接被拒绝</string>
     <string name="confirm_delete_server">您确定要删除此服务器吗？</string>
@@ -90,7 +122,6 @@
     <string name="search">搜索</string>
     <string name="searchHint">搜索频道与用户</string>
     <string name="bluetooth">蓝牙</string>
-    <string name="quickConnect">快速连接</string>
     <string name="connect">连接</string>
     <string name="connectToServer">连接服务器</string>
     <string name="edit">编辑</string>
@@ -127,15 +158,16 @@
     <string name="action_settings">设置</string>
     <string name="reconnect">重新连接</string>
     <string name="reconnect_dialog_message">您已连接到其他服务器。改为连接此服务器吗？</string>
+    <string name="already_connected_to_server">当前已连接该服务器</string>
     <string name="confirm_reset_comment">您确定要重置 %s 的简介吗？</string>
     <string name="confirm">确认</string>
     <string name="expand">展开</string>
+    <string name="collapse">折叠</string>
     <string name="temporary">临时</string>
     <string name="position">位置</string>
     <string name="channel_edit">编辑频道</string>
     <string name="channel_add">添加频道</string>
     <string name="tts_failed">无法启用文字转语音</string>
-    <string name="mumble_url_parse_failed">Mumble URL 无效。</string>
     <string name="first_run_generate_certificate_title">欢迎使用 Mumla</string>
     <string name="first_run_generate_certificate">强烈推荐您生成证书，部分服务器要求您必须有证书。</string>
     <string name="generate">生成</string>
@@ -150,6 +182,7 @@
     <string name="cancelled">已取消</string>
     <string name="current_chat_target">当前聊天目标</string>
     <string name="channel_join">加入</string>
+    <string name="context_channel_talk">发言</string>
     <string name="certificate_info">通用名称：\n%1$s\n\n有效期始于：\n%2$s\n\n有效期止于：\n%3$s\n\n摘要（SHA-1）：\n%4$s\n\n摘要（SHA-256）：\n%5$s</string>
     <string name="invalid_host">无效主机</string>
     <string name="invalid_port_range">无效端口（1-65535）</string>
@@ -208,3 +241,4 @@
     <string name="app_news_items_v3_7_2">• 修复在启动时可能的崩溃。\n • 添加一些翻译，感谢所有翻译者！\n</string>
     <string name="app_news_items_v3_7_3">• 使按键发言触发角在 Android 12 和更高版本，以及暗黑和明亮背景上可见\n • 使返回按钮在 Android 16+ 上再次询问是否从服务器断开连接\n</string>
 </resources>
+

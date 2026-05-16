@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="drawer_favorites">Favoritter</string>
-    <string name="drawer_public">Offentlige servere</string>
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(Link til %1$s)</string>
     <string name="user_menu_ignore_messages">Ignorér beskeder</string>
@@ -13,8 +12,6 @@
     <string name="udp_encryption_mode">Krypteret med 128 bit OCB-AES-128</string>
     <string name="server_info_protocol">Protokol %s.</string>
     <string name="server_info_version">%1$s (%2$s)</string>
-    <string name="server_match_progress">Finder en server…</string>
-    <string name="server_match_not_found">Kunne ikke finde server</string>
     <string name="server_password">Adgangskode</string>
     <string name="server_username">Brugernavn</string>
     <string name="connecting">Forbinder</string>
@@ -81,9 +78,6 @@
     <string name="user_menu_view_comment">Se kommentar</string>
     <string name="server_info_max_bandwidth">Maksimum %.1f kbit/s</string>
     <string name="server_info_current_bandwidth">Nuværende %.1f kbit/s</string>
-    <string name="server_match">Find server</string>
-    <string name="server_match_found">Server fundet</string>
-    <string name="server_match_expand_country">Kunne ikke finde nogle optimale servere i dit land. Søg verden over\?</string>
     <string name="save">Gem</string>
     <string name="add">Tilføj</string>
     <string name="messageToChannel">Skriv en besked til kanal \'%s\'</string>

@@ -9,7 +9,6 @@
     <string name="drawer_pinned">Przypięte kanały</string>
     <string name="drawer_header_servers">Serwery</string>
     <string name="drawer_favorites">Ulubione</string>
-    <string name="drawer_public">Serwery publiczne</string>
     <!-- Chat formatting -->
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(Łącze do %1$s)</string>
@@ -46,13 +45,6 @@
     <string name="server_info_max_bandwidth">Maksymalnie: %.1f kbit/s</string>
     <string name="server_info_current_bandwidth">Obecnie: %.1f kbit/s</string>
     <!-- Server matching -->
-    <string name="server_match">Znajdź serwer</string>
-    <string name="server_match_progress">Znajdowanie serwera…</string>
-    <string name="server_match_found">Znaleziono serwer</string>
-    <string name="server_match_not_found">Nie udało się znaleźć serwera</string>
-    <string name="server_match_expand_country">Nie udało się znaleźć optymalnych serwerów w Twoim kraju. Szukać na całym świecie\?</string>
-    <string name="server_match_info">Nazwa: %1$s\nHost: %2$s:%3$d\nUżytkownicy: %4$d / %5$d\nWersja: %6$s \nKraj: %7$s \nOpóźnienie: %8$d ms</string>
-    <string name="server_match_description">Mumla może automatycznie znaleźć Ci pusty serwer, optymalizując lokalizację, wersję i opóźnienie.</string>
     <!-- Common -->
     <string name="no_servers">Naciśnij „Dodaj” z paska akcji, aby najpierw dodać serwer.</string>
     <string name="server_password">Hasło</string>
@@ -85,7 +77,6 @@
     <string name="search">Wyszukaj</string>
     <string name="searchHint">Wyszukaj kanały i użytkowników</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Szybkie połączenie</string>
     <string name="connect">Połącz</string>
     <string name="connectToServer">Połącz z serwerem</string>
     <string name="edit">Edytuj</string>
@@ -131,7 +122,6 @@
     <string name="channel_edit">Edytuj kanał</string>
     <string name="channel_add">Dodaj kanał</string>
     <string name="tts_failed">Nie udało się uruchomić TTS</string>
-    <string name="mumble_url_parse_failed">Adres URL Mumble jest nieprawidłowy.</string>
     <string name="first_run_generate_certificate_title">Witaj w Mumli</string>
     <string name="first_run_generate_certificate">Generowanie certyfikatu jest bardzo zalecane i konieczne do połączenia z niektórymi serwerami.</string>
     <string name="generate">Wygeneruj</string>

@@ -100,5 +100,5 @@
     <string name="echoCancellationMethod">Usuwanie echa</string>
     <string name="echoCancellationMethodSum">Zredukuj echo z głośnika urządzenia podczas rozmowy. Jakość zależy od urządzenia.</string>
     <string name="echoCancellationDisabled">Wyłączone</string>
-    <string name="echoCancellationSystem">Systemowe</string>
+    <string name="echoCancellationWebRtc">WebRTC</string>
 </resources>

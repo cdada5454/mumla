@@ -1,0 +1,13 @@
+Speex source vendored from:
+
+Repository: https://gitlab.xiph.org/xiph/speex
+Version: 1.2rc1
+Commit: not recorded by the previous source import
+
+Version evidence:
+- configure.ac sets SPEEX_VERSION="1.2rc1".
+
+Update notes:
+- Replace this directory with the desired Speex source release or commit.
+- Keep libraries/humla/src/main/jni/Android.mk in sync with any source layout changes.
+- Do not commit generated libraries or archives.

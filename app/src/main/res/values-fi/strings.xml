@@ -72,7 +72,6 @@
     <string name="generate">Luo</string>
     <string name="first_run_generate_certificate">Sertifikaatin luominen on erittäin suositeltavaa ja välttämätöntä yhteyden muodostamiseksi joihinkin palvelimiin.</string>
     <string name="first_run_generate_certificate_title">Tervetuloa Mumlaan</string>
-    <string name="mumble_url_parse_failed">Mumblen URL-osoite ei kelpaa.</string>
     <string name="tts_failed">TTS: n käynnistäminen epäonnistui</string>
     <string name="channel_add">Lisää kanava</string>
     <string name="channel_edit">Muokkaa kanavaa</string>
@@ -117,7 +116,6 @@
     <string name="edit">Muokkaa</string>
     <string name="connectToServer">Yhdistä palvelimeen</string>
     <string name="connect">Yhdistä</string>
-    <string name="quickConnect">Pikayhteys</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="searchHint">Hae kanavia ja käyttäjiä</string>
     <string name="search">Haku</string>
@@ -147,18 +145,6 @@
     <string name="server_username">Käyttäjänimi</string>
     <string name="server_password">Salasana</string>
     <string name="no_servers">Lisää palvelin ensin painamalla toimintopalkista Lisää.</string>
-    <string name="server_match_description">Mumla löytää automaattisesti tyhjän palvelimen, joka optimoi sijainnin, version ja viiveen.</string>
-    <string name="server_match_info">Nimi: %1$s
-\nIsäntä: %2$s: %3$d
-\nKäyttäjät: %4$d / %5$d
-\nVersio: %6$s
-\nMaa: %7$s
-\nLatenssi: %8$d ms</string>
-    <string name="server_match_expand_country">Maastasi ei löytynyt optimaalisia palvelimia. Etsitäänkö maailmanlaajuisesti\?</string>
-    <string name="server_match_not_found">Palvelinta ei löytynyt</string>
-    <string name="server_match_found">Palvelin löydetty</string>
-    <string name="server_match_progress">Palvelinta etsitään …</string>
-    <string name="server_match">Etsi palvelin</string>
     <string name="server_info_current_bandwidth">Tällä hetkellä: %.1f kbit/s</string>
     <string name="server_info_max_bandwidth">Enintään %.1f kbit/s</string>
     <string name="server_info_codec">Koodekki: %s</string>
@@ -189,7 +175,6 @@
     <string name="user_menu_kick">Potki</string>
     <string name="chat_message_tts_short_link">(Linkki %1$s)</string>
     <string name="chat_message_to">%1$s → %2$s</string>
-    <string name="drawer_public">Julkiset palvelimet</string>
     <string name="drawer_favorites">Suosikit</string>
     <string name="drawer_header_servers">Palvelimet</string>
     <string name="drawer_pinned">Kiinnitetyt kanavat</string>

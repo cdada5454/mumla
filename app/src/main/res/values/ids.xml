@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="drawer_layout" type="id" />
+    <item name="left_drawer" type="id" />
+    <item name="content_frame" type="id" />
+    <item name="toolbar" type="id" />
+    <item name="settings_container" type="id" />
+    <item name="channel_detail_view_pager" type="id" />
+    <item name="channel_tab_layout" type="id" />
+    <item name="channel_view_pager" type="id" />
+    <item name="pushtotalk_view" type="id" />
+    <item name="pushtotalk_card" type="id" />
+    <item name="pushtotalk" type="id" />
+    <item name="pushtotalk_server" type="id" />
+    <item name="pushtotalk_channel" type="id" />
+    <item name="target_panel" type="id" />
+    <item name="target_panel_cancel" type="id" />
+    <item name="target_panel_warning" type="id" />
+    <item name="list_fragment" type="id" />
+    <item name="chat_fragment" type="id" />
+    <item name="channelUsers" type="id" />
+    <item name="channel_row_title" type="id" />
+    <item name="channel_row_name" type="id" />
+    <item name="channel_row_count" type="id" />
+    <item name="channel_row_join" type="id" />
+    <item name="channel_row_talking" type="id" />
+    <item name="channel_row_more" type="id" />
+    <item name="user_row_title" type="id" />
+    <item name="user_row_talk_highlight" type="id" />
+    <item name="user_row_name" type="id" />
+    <item name="user_row_more" type="id" />
+    <item name="server_list_grid" type="id" />
+    <item name="server_list_grid_empty" type="id" />
+    <item name="server_row_name" type="id" />
+    <item name="server_row_user" type="id" />
+    <item name="server_row_address" type="id" />
+    <item name="server_row_more" type="id" />
+    <item name="server_row_version_status" type="id" />
+    <item name="server_row_latency" type="id" />
+    <item name="server_row_usercount" type="id" />
+    <item name="server_row_ping_progress" type="id" />
+    <item name="server_row_info" type="id" />
+</resources>

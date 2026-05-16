@@ -6,15 +6,7 @@
     <string name="drawer_close">Stäng byrålåda</string>
     <string name="chat_message_to">%1$s→ %2$s</string>
     <string name="user_menu_kick">Sparka ut</string>
-    <string name="drawer_public">Publika servrar</string>
     <string name="server_info_codec">Kodek: %s</string>
-    <string name="server_match_progress">Letar efter server…</string>
-    <string name="server_match_info">Namn: %1$s
-\nServer och port: %2$s:%3$d
-\nAnvändare:%4$d / %5$d
-\nVersion: %6$s
-\nLand: %7$s
-\nLatens: %8$d ms</string>
     <string name="server_username">Användarnamn</string>
     <string name="add">Lägg till</string>
     <string name="information">Information</string>
@@ -56,8 +48,6 @@
     <string name="server_info_protocol">Protokoll %s.</string>
     <string name="server_info_version">%1$s (%2$s)</string>
     <string name="server_info_max_bandwidth">Max %.1f kbit/s</string>
-    <string name="server_match_found">Servern hittades</string>
-    <string name="server_match_expand_country">Kunde inte hitta några optimala servrar i ditt land. Sök över hela världen?</string>
     <string name="no_servers">Tryck på \"Lägg till\" från åtgärdsfältet för att lägga till en server först.</string>
     <string name="server_password">Lösenord</string>
     <string name="server_port">Port</string>
@@ -95,7 +85,6 @@
     <string name="orbot_not_installed">Orbot-appen är inte installerad. Använder inte Tor.</string>
     <string name="default_">Standard</string>
     <string name="server_info_current_bandwidth">Nuvarande %.1f kbit/s</string>
-    <string name="server_match_description">Mumla kan automatiskt hitta en tom server, optimerad för plats, version och latens.</string>
     <string name="externalStorageUnavailable">Extern lagring otillgänglig, kan inte ladda certifikat</string>
     <string name="searchHint">Sök kanaler och användare</string>
     <string name="connectToServer">Anslut till server</string>
@@ -120,8 +109,6 @@
     <string name="audio_bandwidth">Ljudbandbredd</string>
     <string name="server_info_latency">%.2f ms latens</string>
     <string name="server_info_host">Servernamn %1$s (port %2$d)</string>
-    <string name="server_match">Hitta server</string>
-    <string name="server_match_not_found">Kunde inte hitta server</string>
     <string name="mute">Tysta</string>
     <string name="deafen">Döva</string>
     <string name="perm_denied">Åtkomst nekad.</string>
@@ -138,7 +125,6 @@
     <string name="generateCertProgress">Genererar certifikat…</string>
     <string name="search">Sök</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Snabbanslutning</string>
     <string name="connect">Anslut</string>
     <string name="edit">Redigera</string>
     <string name="remove">Ta bort</string>
@@ -161,7 +147,6 @@
     <string name="reconnect">Återanslut</string>
     <string name="confirm_reset_comment">Är du säker på att du vill återställa kommentaren för användaren %s?</string>
     <string name="channel_edit">Redigera kanal</string>
-    <string name="mumble_url_parse_failed">Mumble-URL:en är inte giltig.</string>
     <string name="first_run_generate_certificate">Generering av certifikat rekommenderas starkt, och krävs för att ansluta till vissa servrar.</string>
     <string name="trust_add_failed">Kunde inte lägga till certifikatet i databasen för betrodda certifikat.</string>
     <string name="trust_cleared">Databasen med betrodda certifikat har tömts</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="drawer_header_servers">伺服器</string>
-    <string name="drawer_public">公共伺服器</string>
     <string name="drawer_not_connected">未連接</string>
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="user_menu_kick">踢出</string>

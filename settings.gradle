@@ -22,3 +22,4 @@
 
 
 include ':libraries:humla', ':app'
+includeBuild('libraries/humla/libs/humla-spongycastle')

@@ -11,15 +11,6 @@
     <string name="comment_view_source">Forrás megtekintése</string>
     <string name="voice_channel">Hangcsatorna</string>
     <string name="tcp_encryption_mode">Titkosítva: 256 bit AES-256-SHA</string>
-    <string name="server_match">Kiszolgáló keresése</string>
-    <string name="server_match_progress">Kiszolgáló keresése…</string>
-    <string name="server_match_found">Kiszolgáló megtalálva</string>
-    <string name="server_match_info">Név: %1$s
-\nKiszolgáló: %2$s:%3$d
-\nFelhasználók: %4$d / %5$d
-\nVerzió: %6$s
-\nOrszág: %7$s
-\nKésleltetés: %8$d ms</string>
     <string name="no_servers">Nyomd meg a \'Hozzáad\' gombot (+) , egy kiszolgáló hozzáadásához.</string>
     <string name="server_host">Cím</string>
     <string name="accessAdd">Hozzáférési token hozzáadása</string>
@@ -34,7 +25,6 @@
     <string name="drawer_not_connected">Nincs kapcsolódva</string>
     <string name="drawer_server">Összes csatorna</string>
     <string name="drawer_tokens">Hozzáférési tokenek</string>
-    <string name="drawer_public">Nyilvános szerverek</string>
     <string name="drawer_pinned">Kitűzött csatornák</string>
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(Link a(z) %1$s)</string>
@@ -58,9 +48,6 @@
     <string name="server_info_codec">Kodek: %s</string>
     <string name="server_info_max_bandwidth">Maximum %.1f Kbit/s</string>
     <string name="server_info_current_bandwidth">Jelenlegi %.1f Kbit/s</string>
-    <string name="server_match_not_found">Nem találom a kiszolgálót</string>
-    <string name="server_match_expand_country">Nem található optimális szerver az országodban. Keressek világszinten?</string>
-    <string name="server_match_description">A Mumla képes automatikusan üres szervert találni, optimalizálva a helyet, a verziót és a késleltetést.</string>
     <string name="server_password">Jelszó</string>
     <string name="server_username">Felhasználónév</string>
     <string name="server_port">Port</string>
@@ -87,7 +74,6 @@
     <string name="search">Keresés</string>
     <string name="searchHint">Csatorna és felhasználó keresés</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Gyors csatlakozás</string>
     <string name="connect">Csatlakozás</string>
     <string name="connectToServer">Kapcsolódás szerverhez</string>
     <string name="edit">Szerkesztés</string>
@@ -157,7 +143,6 @@
     <string name="channel_edit">Csatorna szerkesztése</string>
     <string name="channel_add">Csatorna hozzáadása</string>
     <string name="tts_failed">Nem sikerült a Text To Speech indítása</string>
-    <string name="mumble_url_parse_failed">Ez a Mumble URL helytelen.</string>
     <string name="first_run_generate_certificate_title">Üdvözöl a Mumla</string>
     <string name="channel_join">Belépés</string>
     <string name="certificate_info">Tárgy:

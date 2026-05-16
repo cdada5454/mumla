@@ -142,7 +142,7 @@
             app:iconSpaceReserved="false"/>
 
         <ListPreference
-            android:defaultValue="none"
+            android:defaultValue="webrtc"
             android:entries="@array/echoCancellationNames"
             android:entryValues="@array/echoCancellationValues"
             android:key="echo_cancellation_method"

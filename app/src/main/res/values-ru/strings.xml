@@ -9,7 +9,6 @@
     <string name="drawer_pinned">Закрепленные</string>
     <string name="drawer_header_servers">Сервера</string>
     <string name="drawer_favorites">Избранное</string>
-    <string name="drawer_public">Публичные сервера</string>
     <!-- Chat formatting -->
     <string name="chat_message_to">%1$s → %2$s</string>
     <string name="chat_message_tts_short_link">(Ссылка на %1$s)</string>
@@ -46,18 +45,6 @@
     <string name="server_info_max_bandwidth">Максимальная %.1f Кбит/с</string>
     <string name="server_info_current_bandwidth">Текущая %.1f Кбит/с</string>
     <!-- Server matching -->
-    <string name="server_match">Найти сервер</string>
-    <string name="server_match_progress">Поиск сервера…</string>
-    <string name="server_match_found">Сервер найден</string>
-    <string name="server_match_not_found">Не удалось найти сервер</string>
-    <string name="server_match_expand_country">Не удалось найти оптимальный сервер в вашей стране. Искать по всему миру\?</string>
-    <string name="server_match_info">Название: %1$s
-\nАдрес: %2$s:%3$d
-\nПользователей: %4$d / %5$d
-\nВерсия: %6$s
-\nСтрана: %7$s
-\nЗадержка: %8$d мс</string>
-    <string name="server_match_description">Mumla может автоматически найти пустой сервер, основываясь на местоположении, версии, и задержке.</string>
     <!-- Common -->
     <string name="no_servers">Для начала добавьте сервер, нажав \'Добавить\' в панели управления.</string>
     <string name="server_password">Пароль</string>
@@ -89,7 +76,6 @@
     <string name="generateCertProgress">Создание сертификата…</string>
     <string name="search">Поиск</string>
     <string name="searchHint">Поиск каналов и пользователей</string>
-    <string name="quickConnect">Быстрое подключение</string>
     <string name="connect">Подключиться</string>
     <string name="connectToServer">Подключиться к серверу</string>
     <string name="edit">Редактировать</string>
@@ -134,7 +120,6 @@
     <string name="channel_edit">Редактировать канал</string>
     <string name="channel_add">Добавить канал</string>
     <string name="tts_failed">Не удалось запустить TTS</string>
-    <string name="mumble_url_parse_failed">Неверная Mumble-ссылка.</string>
     <string name="first_run_generate_certificate_title">Добро пожаловать в Mumla</string>
     <string name="first_run_generate_certificate">Мы рекомендуем создать сертификат. К тому же, он необходим для подключения к некоторым серверам.</string>
     <string name="generate">Создать</string>

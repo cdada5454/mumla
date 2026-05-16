@@ -9,7 +9,6 @@
     <string name="drawer_pinned">Salons épinglés</string>
     <string name="drawer_header_servers">Serveurs</string>
     <string name="drawer_favorites">Favoris</string>
-    <string name="drawer_public">Serveurs publiques</string>
     <!--Chat formatting-->
     <string name="chat_message_to">%1$s → %2$s</string>
     <!--User menu-->
@@ -45,18 +44,6 @@
     <string name="server_info_max_bandwidth">Maximum %.1f kbit/s</string>
     <string name="server_info_current_bandwidth">Actuel %.1f kbit/s</string>
     <!--Server matching-->
-    <string name="server_match">Trouver un serveur</string>
-    <string name="server_match_progress">Recherche un serveur…</string>
-    <string name="server_match_found">Serveur trouvé</string>
-    <string name="server_match_not_found">Impossible de trouver le serveur</string>
-    <string name="server_match_expand_country">Impossible de trouver aucun serveur optimal dans votre pays. Étendre la recherche au monde entier ?</string>
-    <string name="server_match_info">Nom : %1$s
-\nHôte : %2$s :%3$d
-\nUtilisateur : %4$d / %5$d
-\nVersion :%6$s
-\nPays : %7$s
-\nLatence : %8$d ms</string>
-    <string name="server_match_description">Mumla peut vous trouver automatiquement un serveur vide, en optimisant en se basant sur la position du serveur, sa version, et sa latence.</string>
     <!--Common-->
     <string name="no_servers">Appuyez sur le bouton « Ajouter » dans la barre d\'action pour commencer.</string>
     <string name="server_password">Mot de passe</string>
@@ -89,7 +76,6 @@
     <string name="search">Rechercher</string>
     <string name="searchHint">Rechercher des salons et des utilisateurs</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Connexion rapide</string>
     <string name="connect">Connexion</string>
     <string name="connectToServer">Connexion au serveur</string>
     <string name="edit">Modifier</string>
@@ -135,7 +121,6 @@
     <string name="channel_edit">Éditer le salon</string>
     <string name="channel_add">Ajouter un salon</string>
     <string name="tts_failed">Erreur de l\'initialisation de TTS</string>
-    <string name="mumble_url_parse_failed">L\'URL Mumble n\'est pas valide.</string>
     <string name="first_run_generate_certificate_title">Bienvenue dans Mumla</string>
     <string name="first_run_generate_certificate">Générer un certificat est très recommandé, et nécessaire pour la connexion à certains serveurs.</string>
     <string name="generate">Générer</string>

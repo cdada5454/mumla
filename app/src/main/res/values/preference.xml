@@ -68,7 +68,7 @@
     <string name="chatNotifications">Chat notifications</string>
     <string name="chatNotificationsSum">Shown for new chat messages.</string>
     <string name="defaultUsername">Default username</string>
-    <string name="defaultUsernameSum">Prefilled name used when adding a server, or connecting to a public server.</string>
+    <string name="defaultUsernameSum">Prefilled name used when adding a server.</string>
     <string name="defaultUsernameDefault">Mumla_User</string>
     <string name="certificateGenerate">Generate certificate</string>
     <string name="certificateGenerateSum">Generates a new self-signed Mumla certificate. Recommended for beginners.</string>
@@ -77,9 +77,9 @@
     <string name="disableOpus">Avoid Opus codec</string>
     <string name="disableOpusSum">Turn off Opus support for Mumble 1.2.4 servers.</string>
     <string name="echoCancellationMethod">Echo Cancellation</string>
-    <string name="echoCancellationMethodSum">Reduce echo from your device\'s speaker while talking. Quality depends on the device.</string>
+    <string name="echoCancellationMethodSum">Reduce speaker echo before noise suppression and gain control.</string>
     <string name="echoCancellationDisabled">Disabled</string>
-    <string name="echoCancellationSystem">System</string>
+    <string name="echoCancellationWebRtc">WebRTC</string>
     <string name="hidePtt">Hide push-to-talk button</string>
     <string name="hidePttSum">Only useful if you use Push-to-talk corner or physical key.</string>
     <string name="useTts">Text-to-speech</string>
@@ -110,7 +110,7 @@
     <string name="pttSound">Push-to-talk sound</string>
     <string name="pttSoundSum">Play sound effect when pressing the push-to-talk button.</string>
     <string name="preprocessor_enabled">Input pre-processing</string>
-    <string name="preprocessor_enabled_sum">Suppresses ambient noise and normalizes audio volume.</string>
+    <string name="preprocessor_enabled_sum">Runs the native voice cleanup pipeline before encoding.</string>
     <string name="audio_per_packet">Audio per packet</string>
     <string name="audio_per_packet_sum">The length of audio per voice packet.</string>
     <string name="stay_awake">Stay awake</string>

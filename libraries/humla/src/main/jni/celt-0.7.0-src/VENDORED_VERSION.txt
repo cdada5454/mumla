@@ -1,0 +1,14 @@
+CELT source vendored from:
+
+Repository: historical Xiph CELT source
+Version: 0.7.1
+Commit: not recorded by the previous source import
+
+Version evidence:
+- configure.ac sets CELT_MAJOR_VERSION=0, CELT_MINOR_VERSION=7,
+  CELT_MICRO_VERSION=1.
+
+Update notes:
+- This legacy source is kept for old Mumble CELT alpha compatibility.
+- Keep libraries/humla/src/main/jni/Android.mk in sync with any source layout changes.
+- Do not commit generated libraries or archives.

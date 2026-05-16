@@ -17,46 +17,59 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<androidx.cardview.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="?cardStyle">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
 
     <LinearLayout
         android:id="@+id/list_chat_item_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <TextView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/list_chat_item_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="example username → channel"
-            android:textSize="11sp"
-            android:id="@+id/list_chat_item_target"
-            android:textColor="#999"
-            android:layout_marginBottom="4dp" />
+            android:layout_gravity="start"
+            app:cardBackgroundColor="@color/chat_bubble_incoming"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="1dp"
+            app:cardUseCompatPadding="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="example message"
-            android:id="@+id/list_chat_item_text"
-            android:layout_marginBottom="4dp"
-            android:textIsSelectable="true"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="280dp"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="23:23:23"
-            android:textSize="11sp"
-            android:id="@+id/list_chat_item_time"
-            android:textColor="#999"/>
+                <TextView
+                    android:id="@+id/list_chat_item_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+                    tools:text="example message" />
+
+                <TextView
+                    android:id="@+id/list_chat_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="10sp"
+                    tools:text="23:23" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

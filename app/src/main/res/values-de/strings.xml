@@ -9,7 +9,6 @@
     <string name="drawer_pinned">Gepinnte Kanäle</string>
     <string name="drawer_header_servers">Server</string>
     <string name="drawer_favorites">Favoriten</string>
-    <string name="drawer_public">Öffentliche Server</string>
     <!--Chat formatting-->
     <string name="chat_message_to">%1$s → %2$s</string>
     <!--User menu-->
@@ -45,13 +44,6 @@
     <string name="server_info_max_bandwidth">Maximum %.1f kbit/s</string>
     <string name="server_info_current_bandwidth">Aktuell %.1f kbit/s</string>
     <!--Server matching-->
-    <string name="server_match">Server suchen</string>
-    <string name="server_match_progress">Einen Server finden…</string>
-    <string name="server_match_found">Server gefunden</string>
-    <string name="server_match_not_found">Server nicht gefunden</string>
-    <string name="server_match_expand_country">Konnte keinen optimalen Server in Ihrem Land finden. Suche auf die ganze Welt ausweiten?</string>
-    <string name="server_match_info">Name: %1$s\nHost: %2$s:%3$d\nBenutzer: %4$d / %5$d\nVersion: %6$s \nLand: %7$s \nLatenz: %8$d ms</string>
-    <string name="server_match_description">Mumla kann automatisch nach einem leeren Server suchen, optimiert nach Serverstandort, Version und Latenz.</string>
     <!--Common-->
     <string name="no_servers">Drücken Sie den „Hinzufüg en“-Knopf in der Aktionsleiste, um zu beginnen.</string>
     <string name="server_password">Passwort</string>
@@ -84,7 +76,6 @@
     <string name="search">Suche</string>
     <string name="searchHint">Suche nach Kanälen und Benutzern</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="quickConnect">Schnell verbinden</string>
     <string name="connect">Verbinden</string>
     <string name="connectToServer">Verbinde zum Server</string>
     <string name="edit">Bearbeiten</string>
@@ -130,7 +121,6 @@
     <string name="channel_edit">Kanal bearbeiten</string>
     <string name="channel_add">Kanal hinzufügen</string>
     <string name="tts_failed">TTS konnte nicht gestartet werden</string>
-    <string name="mumble_url_parse_failed">Konnte Mumble URL nicht verarbeiten.</string>
     <string name="first_run_generate_certificate_title">Willkommen in Mumla</string>
     <string name="first_run_generate_certificate">Es wird sehr empfohlen ein Zertifikat zu generieren. Manche Server setzen ein Zertifikat voraus.</string>
     <string name="generate">Generieren</string>

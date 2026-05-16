@@ -1,0 +1,49 @@
+/*
+ * Copyright (C) 2014 Andrew Comminos
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package se.lublin.mumla.service.ipc
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import se.lublin.humla.IHumlaService
+
+class TalkBroadcastReceiver(private val service: IHumlaService) : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        if (BROADCAST_TALK == intent.action) {
+            if (!service.isConnected) {
+                return
+            }
+            val session = service.HumlaSession()
+            when (intent.getStringExtra(EXTRA_TALK_STATUS) ?: TALK_STATUS_TOGGLE) {
+                TALK_STATUS_ON -> session.setTalkingState(true)
+                TALK_STATUS_OFF -> session.setTalkingState(false)
+                TALK_STATUS_TOGGLE -> session.setTalkingState(!session.isTalking)
+            }
+        } else {
+            throw UnsupportedOperationException()
+        }
+    }
+
+    companion object {
+        const val BROADCAST_TALK = "se.lublin.mumla.action.TALK"
+        const val EXTRA_TALK_STATUS = "status"
+        const val TALK_STATUS_ON = "on"
+        const val TALK_STATUS_OFF = "off"
+        const val TALK_STATUS_TOGGLE = "toggle"
+    }
+}

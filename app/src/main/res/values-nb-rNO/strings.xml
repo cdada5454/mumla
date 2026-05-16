@@ -5,7 +5,6 @@
     <string name="edit">Rediger</string>
     <string name="connectToServer">Koble til tjener</string>
     <string name="connect">Koble til</string>
-    <string name="quickConnect">Hurtigtilkobling</string>
     <string name="bluetooth">Blåtann</string>
     <string name="searchHint">Søk i kanaler og brukere</string>
     <string name="search">Søk</string>
@@ -37,18 +36,6 @@
     <string name="server_username">Brukernavn</string>
     <string name="server_password">Passord</string>
     <string name="no_servers">Trykk «Legg til» fra handlingsfeltet for å legge til en tjener først.</string>
-    <string name="server_match_description">Mumla kan automatisk finne deg en tom tjener, optimalisere for plassering, versjon, og latens.</string>
-    <string name="server_match_info">Navn: %1$s
-\nVert: %2$s:%3$d
-\nBrukere: %4$d / %5$d
-\nVersjon: %6$s
-\nLand: %7$s
-\nLatens: %8$d ms</string>
-    <string name="server_match_expand_country">Kunne ikke finne noen optimale tjenere i ditt land. Søk i hele verden\?</string>
-    <string name="server_match_not_found">Kunne ikke finne tjener</string>
-    <string name="server_match_found">Fant tjener</string>
-    <string name="server_match_progress">Finner en tjener …</string>
-    <string name="server_match">Finn tjener</string>
     <string name="server_info_current_bandwidth">Nåværende %.1f kbit/s</string>
     <string name="server_info_max_bandwidth">Maksimalt %.1f kbit/s</string>
     <string name="server_info_codec">Kodek: %s</string>
@@ -123,7 +110,6 @@
     <string name="generate">Generer</string>
     <string name="first_run_generate_certificate">Generering av sertifikat anbefales sterkt, og er påkrevd for tilkobling til noen tjenere.</string>
     <string name="first_run_generate_certificate_title">Velkommen</string>
-    <string name="mumble_url_parse_failed">Mumble-nettadressen er ugyldig.</string>
     <string name="tts_failed">Kunne ikke start knapp for snakking</string>
     <string name="channel_add">Legg til kanal</string>
     <string name="channel_edit">Rediger kanal</string>
@@ -189,7 +175,6 @@
     <string name="user_menu_kick">Kast ut</string>
     <string name="chat_message_tts_short_link">(Lenke til %1$s)</string>
     <string name="chat_message_to">%1$s → %2$s</string>
-    <string name="drawer_public">Offentlige tjenere</string>
     <string name="drawer_favorites">Favoritter</string>
     <string name="drawer_header_servers">Tjenere</string>
     <string name="drawer_pinned">Festede kanaler</string>

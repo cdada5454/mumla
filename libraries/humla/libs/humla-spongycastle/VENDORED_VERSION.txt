@@ -1,0 +1,17 @@
+Humla SpongyCastle source vendored from:
+
+Repository: https://github.com/Morlunk/spongycastle
+Branch lineage: pkcs12-keybag-fixes
+Version: 1.51.0.0
+Commit: not recorded by the previous source import
+
+Version evidence:
+- build.gradle sets version = '1.51.0.0'.
+- bc-build.properties sets release.version: 1.51.0.
+
+Update notes:
+- This fork carries custom PKCS12 keybag parsing changes for Mumble
+  unencrypted certificates.
+- Keep root settings.gradle includeBuild('libraries/humla/libs/humla-spongycastle')
+  in sync.
+- Do not commit generated libraries or archives.

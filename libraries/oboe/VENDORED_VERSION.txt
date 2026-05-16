@@ -1,0 +1,8 @@
+Oboe source vendored from:
+
+Repository: https://github.com/google/oboe
+Tag: 1.10.0
+Commit: a81bb9f87d4105b84b682685d3bfbb5beca371d1
+
+The upstream repository metadata and example Gradle wrapper jars were removed
+so this directory contains source files only, not prebuilt library artifacts.

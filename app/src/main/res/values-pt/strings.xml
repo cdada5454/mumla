@@ -16,7 +16,6 @@
     <string name="edit">Editar</string>
     <string name="connectToServer">Conectar-se ao servidor</string>
     <string name="connect">Conectar</string>
-    <string name="quickConnect">Conexão rápida</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="searchHint">Procurar canais e usuários</string>
     <string name="search">Procurar</string>
@@ -48,18 +47,6 @@
     <string name="server_username">Nome de usuário</string>
     <string name="server_password">Senha</string>
     <string name="no_servers">Você ainda não adicionou servidores. Pressione o botão \"Adicionar\" na barra de ações para começar.</string>
-    <string name="server_match_description">Mumla pode procurar automaticamente um servidor vazio, otimizado para sua localização, versão e latência.</string>
-    <string name="server_match_info">Nome: %1$s
-\nHost: %2$s:%3$d
-\nUsuários: %4$d / %5$d
-\nVersão: %6$s
-\nPaís: %7$s
-\nLatência: %8$d ms</string>
-    <string name="server_match_expand_country">Não foi possível encontrar servidores em seu país. Procurar mundialmente\?</string>
-    <string name="server_match_not_found">Não foi possível encontrar o servidor</string>
-    <string name="server_match_found">Servidor encontrado</string>
-    <string name="server_match_progress">Procurando servidor…</string>
-    <string name="server_match">Procurar servidor</string>
     <string name="server_info_current_bandwidth">Atual %.1f kbit/s</string>
     <string name="server_info_max_bandwidth">Máximo de %.1f kbit/s</string>
     <string name="server_info_codec">Codec: %s</string>
@@ -89,7 +76,6 @@
     <string name="user_menu_kick">Expulsar</string>
     <string name="chat_message_tts_short_link">(Link para %1$s)</string>
     <string name="chat_message_to">%1$s → %2$s</string>
-    <string name="drawer_public">Servidores públicos</string>
     <string name="drawer_favorites">Favoritos</string>
     <string name="drawer_header_servers">Servidores</string>
     <string name="drawer_pinned">Canais fixados</string>
@@ -168,7 +154,6 @@
     <string name="generate">Gerar</string>
     <string name="first_run_generate_certificate">Gerar um certificado é altamente recomendado e necessário para se conectar em alguns servidores.</string>
     <string name="first_run_generate_certificate_title">Bem-vindo(a) ao Mumla</string>
-    <string name="mumble_url_parse_failed">URL Mumble inválida.</string>
     <string name="tts_failed">Não foi possível iniciar o Texto-para-voz</string>
     <string name="channel_add">Adicionar canal</string>
     <string name="channel_edit">Editar canal</string>

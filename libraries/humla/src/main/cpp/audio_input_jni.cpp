@@ -19,9 +19,35 @@ namespace {
 constexpr const char* kTag = "HumlaOboeInput";
 constexpr int32_t kDefaultFrameSize = 480;
 constexpr int64_t kReadTimeoutNanos = 100000000;
+constexpr int32_t kAudioSourceDefault = 0;
+constexpr int32_t kAudioSourceMic = 1;
+constexpr int32_t kAudioSourceCamcorder = 5;
+constexpr int32_t kAudioSourceVoiceRecognition = 6;
+constexpr int32_t kAudioSourceVoiceCommunication = 7;
+constexpr int32_t kAudioSourceUnprocessed = 9;
+constexpr int32_t kAudioSourceVoicePerformance = 10;
 
 void logError(const char* message, oboe::Result result) {
     __android_log_print(ANDROID_LOG_ERROR, kTag, "%s: %s", message, oboe::convertToText(result));
+}
+
+oboe::InputPreset inputPresetForAudioSource(int32_t audioSource) {
+    switch (audioSource) {
+        case kAudioSourceCamcorder:
+            return oboe::InputPreset::Camcorder;
+        case kAudioSourceVoiceRecognition:
+            return oboe::InputPreset::VoiceRecognition;
+        case kAudioSourceVoiceCommunication:
+            return oboe::InputPreset::VoiceCommunication;
+        case kAudioSourceUnprocessed:
+            return oboe::InputPreset::Unprocessed;
+        case kAudioSourceVoicePerformance:
+            return oboe::InputPreset::VoicePerformance;
+        case kAudioSourceDefault:
+        case kAudioSourceMic:
+        default:
+            return oboe::InputPreset::Generic;
+    }
 }
 
 std::mutex gPipelineMutex;
@@ -29,12 +55,15 @@ ThirdPartyAudioPipeline* gActivePipeline = nullptr;
 
 class OboeAudioInput final {
 public:
-    OboeAudioInput(JavaVM* vm, jobject listener, int32_t targetSampleRate)
+    OboeAudioInput(JavaVM* vm, jobject listener, int32_t targetSampleRate, int32_t audioSource,
+                   bool preprocessorEnabled)
         : vm_(vm),
           listener_(nullptr),
           onAudioInputReceived_(nullptr),
           requestedSampleRate_(targetSampleRate),
+          audioSource_(audioSource),
           frameSize_(kDefaultFrameSize),
+          preprocessorEnabled_(preprocessorEnabled),
           pipeline_(nullptr),
           recording_(false) {
         JNIEnv* env = nullptr;
@@ -63,7 +92,7 @@ public:
                 ->setSharingMode(oboe::SharingMode::Exclusive)
                 ->setFormat(oboe::AudioFormat::I16)
                 ->setChannelCount(oboe::ChannelCount::Mono)
-                ->setInputPreset(oboe::InputPreset::VoiceCommunication)
+                ->setInputPreset(inputPresetForAudioSource(audioSource_))
                 ->setSampleRateConversionQuality(oboe::SampleRateConversionQuality::Medium);
 
         if (requestedSampleRate_ > 0) {
@@ -80,9 +109,11 @@ public:
         if (result == oboe::Result::OK && stream_) {
             actualSampleRate_ = stream_->getSampleRate();
             frameSize_ = std::max(1, actualSampleRate_ / 100);
-            pipeline_ = std::make_unique<ThirdPartyAudioPipeline>(actualSampleRate_);
-            std::lock_guard<std::mutex> lock(gPipelineMutex);
-            gActivePipeline = pipeline_.get();
+            if (preprocessorEnabled_) {
+                pipeline_ = std::make_unique<ThirdPartyAudioPipeline>(actualSampleRate_);
+                std::lock_guard<std::mutex> lock(gPipelineMutex);
+                gActivePipeline = pipeline_.get();
+            }
         }
 
         return result;
@@ -163,8 +194,10 @@ private:
                 framesRead += result.value();
             }
 
-            if (framesRead == frameSize_ && pipeline_ != nullptr) {
-                pipeline_->process(frame.data(), frameSize_);
+            if (framesRead == frameSize_) {
+                if (pipeline_ != nullptr) {
+                    pipeline_->process(frame.data(), frameSize_);
+                }
                 dispatchFrame(frame.data(), frameSize_);
             }
         }
@@ -214,8 +247,10 @@ private:
     jobject listener_;
     jmethodID onAudioInputReceived_;
     int32_t requestedSampleRate_;
+    int32_t audioSource_;
     int32_t actualSampleRate_ = 0;
     int32_t frameSize_;
+    bool preprocessorEnabled_;
     std::unique_ptr<ThirdPartyAudioPipeline> pipeline_;
     std::atomic<bool> recording_;
     std::mutex streamMutex_;
@@ -240,10 +275,17 @@ Java_se_lublin_humla_audio_NativeAudioInput_nativeCreate(
         JNIEnv* env,
         jclass,
         jobject listener,
-        jint sampleRate) {
+        jint sampleRate,
+        jint audioSource,
+        jboolean preprocessorEnabled) {
     JavaVM* vm = nullptr;
     env->GetJavaVM(&vm);
-    auto input = std::make_unique<OboeAudioInput>(vm, listener, sampleRate);
+    auto input = std::make_unique<OboeAudioInput>(
+            vm,
+            listener,
+            sampleRate,
+            audioSource,
+            preprocessorEnabled == JNI_TRUE);
     oboe::Result result = input->open();
     if (result != oboe::Result::OK) {
         throwIllegalState(env, "Unable to open Oboe input stream", result);

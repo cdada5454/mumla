@@ -38,7 +38,7 @@ public class AudioInput implements Runnable {
     private boolean mRecording;
 
     public AudioInput(AudioInputListener listener, int audioSource, int targetSampleRate,
-                      String echoCancellationMethod)
+                      String echoCancellationMethod, boolean preprocessorEnabled)
             throws NativeAudioException, AudioInitializationException {
         if (!"webrtc".equals(echoCancellationMethod) && !"none".equals(echoCancellationMethod)) {
             Log.w(TAG, "Oboe input ignores legacy echo cancellation method: " + echoCancellationMethod);
@@ -47,7 +47,11 @@ public class AudioInput implements Runnable {
         try {
             // The native processing chain and Mumble Opus path operate on 10 ms frames at 48 kHz.
             // If the device cannot expose 48 kHz directly, AudioHandler will resample before encode.
-            mNativeHandle = NativeAudioInput.nativeCreate(listener, AudioHandler.SAMPLE_RATE);
+            mNativeHandle = NativeAudioInput.nativeCreate(
+                    listener,
+                    AudioHandler.SAMPLE_RATE,
+                    audioSource,
+                    preprocessorEnabled);
         } catch (IllegalStateException | UnsatisfiedLinkError e) {
             throw new AudioInitializationException(e);
         }

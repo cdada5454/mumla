@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Optional existing v* tag to publish APKs to its GitHub Release'
+        description: 'Optional v* tag to upload the APK to an existing GitHub Release'
         required: false
         type: string
 
@@ -15,10 +15,11 @@ permissions:
   contents: write
 
 jobs:
-  build-release-apk:
+  release-apk:
     name: Build release APK
     runs-on: ubuntu-latest
     timeout-minutes: 60
+
     env:
       ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -30,21 +31,14 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
 
-      - name: Show checked out revision
+      - name: Show revision
         shell: bash
         run: |
           set -euo pipefail
-
-          echo "Checked out branch: ${{ github.event.repository.default_branch }}"
           git rev-parse HEAD
           git status --short
-          if git grep -n -E "enableAbiSplits|splits[[:space:]]*\\{" -- app build.gradle settings.gradle gradle.properties; then
-            echo "::error::ABI split configuration is still present in the checked out source."
-            exit 1
-          fi
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -56,7 +50,9 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Android packages
+        shell: bash
         run: |
+          set -euo pipefail
           sdkmanager --install \
             "platforms;android-36" \
             "build-tools;36.0.0" \
@@ -66,7 +62,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Configure APK signing
+      - name: Configure signing
         shell: bash
         run: |
           set -euo pipefail
@@ -120,61 +116,99 @@ jobs:
             echo "SIGNING_MODE=ci" >> "$GITHUB_ENV"
           fi
 
-      - name: Require release signing for tag releases
-        if: ${{ startsWith(github.ref, 'refs/tags/') || github.event_name == 'release' || startsWith(inputs.release_tag, 'v') }}
+      - name: Require real signing for releases
+        if: ${{ github.event_name == 'release' || startsWith(inputs.release_tag, 'v') || startsWith(github.ref, 'refs/tags/v') }}
         shell: bash
         run: |
           set -euo pipefail
-
           if [[ "$SIGNING_MODE" != "release" ]]; then
-            echo "::error::Tag releases must be signed with repository secrets. Configure ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, and ANDROID_KEY_PASSWORD."
+            echo "::error::Release uploads must use repository signing secrets."
             exit 1
           fi
 
-      - name: Check source tree does not contain prebuilt libraries
+      - name: Check source policy
+        shell: bash
         run: ./gradlew --no-daemon checkNoPrebuiltLibraries
+
+      - name: Build legacy native codecs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon :libraries:humla:ndkBuild
+          python3 - <<'PY'
+          from pathlib import Path
+          import sys
+
+          abis = ("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+          libs = ("libjnicelt7.so", "libjnicelt11.so", "libjniopus.so", "libjnispeex.so")
+          root = Path("libraries/humla/src/main/libs")
+          missing = [str(root / abi / lib) for abi in abis for lib in libs if not (root / abi / lib).is_file()]
+          if missing:
+              print("::error::Missing native codec outputs:")
+              print("\n".join(missing))
+              sys.exit(1)
+          PY
 
       - name: Build release APK
         shell: bash
         run: ./gradlew --no-daemon :app:assembleRelease
 
-      - name: Collect APKs
+      - name: Collect and verify APK
         id: apk
         shell: bash
         run: |
           set -euo pipefail
 
           mkdir -p artifacts
-          if find app/build/outputs/apk -type f \( -name '*arm64-v8a-release.apk' -o -name '*armeabi-v7a-release.apk' \) -print | grep -q .; then
-            echo "::error::ABI split APKs were produced. The release build must produce one universal APK only."
+
+          if find app/build/outputs/apk -type f \( -name '*arm64-v8a-release.apk' -o -name '*armeabi-v7a-release.apk' -o -name '*x86-release.apk' -o -name '*x86_64-release.apk' \) -print | grep -q .; then
+            echo "::error::ABI split APKs were produced. Expected one universal APK."
             find app/build/outputs/apk -type f -name '*.apk' -print
             exit 1
           fi
 
           if find app/build/outputs/apk/release -name '*-unsigned.apk' -print -quit | grep -q .; then
-            echo "::error::Unsigned APKs were produced. Refusing to upload install-broken artifacts."
+            echo "::error::Unsigned release APK was produced. Refusing to upload it."
             exit 1
           fi
 
           apk_path="$(find app/build/outputs/apk/release -maxdepth 1 -type f -name '*-release.apk' -print -quit)"
           if [[ -z "$apk_path" ]]; then
-            echo "::error::No signed release APK was produced."
+            echo "::error::No signed release APK found."
             find app/build/outputs/apk -type f -name '*.apk' -print
             exit 1
           fi
 
           version_name="$(python3 -c 'import json; print(json.load(open("app/build/outputs/apk/release/output-metadata.json"))["elements"][0]["versionName"])')"
-          echo "APK_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
-          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+          artifact_path="artifacts/mumla-${version_name}-release.apk"
+          cp "$apk_path" "$artifact_path"
 
-          cp "$apk_path" "artifacts/mumla-${version_name}-release.apk"
-          for apk in artifacts/*.apk; do
-            "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$apk"
-          done
-          sha256sum artifacts/*.apk > artifacts/SHA256SUMS.txt
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$artifact_path"
+
+          python3 - "$artifact_path" <<'PY'
+          import sys
+          import zipfile
+
+          apk_path = sys.argv[1]
+          abis = ("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+          libs = ("libjnicelt7.so", "libjnicelt11.so", "libjniopus.so", "libjnispeex.so")
+
+          with zipfile.ZipFile(apk_path) as apk:
+              entries = set(apk.namelist())
+
+          missing = [f"lib/{abi}/{lib}" for abi in abis for lib in libs if f"lib/{abi}/{lib}" not in entries]
+          if missing:
+              print("::error::APK is missing required native codec libraries:")
+              print("\n".join(missing))
+              sys.exit(1)
+          PY
+
+          sha256sum "$artifact_path" > artifacts/SHA256SUMS.txt
+          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+          echo "APK_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
           ls -lh artifacts
 
-      - name: Upload APK artifacts
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: mumla-${{ steps.apk.outputs.version_name }}-release-apk
@@ -182,19 +216,20 @@ jobs:
           if-no-files-found: error
 
       - name: Remove old ABI release assets
-        if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || startsWith(inputs.release_tag, 'v') }}
+        if: ${{ github.event_name == 'release' || startsWith(inputs.release_tag, 'v') || startsWith(github.ref, 'refs/tags/v') }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
+          set -euo pipefail
           tag_version="${RELEASE_TAG#v}"
           gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-arm64-v8a-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-armeabi-v7a-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-arm64-v8a-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-armeabi-v7a-release.apk" --yes || true
 
-      - name: Publish GitHub release assets
-        if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || startsWith(inputs.release_tag, 'v') }}
+      - name: Upload GitHub Release assets
+        if: ${{ github.event_name == 'release' || startsWith(inputs.release_tag, 'v') || startsWith(github.ref, 'refs/tags/v') }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}

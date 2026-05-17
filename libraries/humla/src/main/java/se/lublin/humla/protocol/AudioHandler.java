@@ -56,7 +56,9 @@ public class AudioHandler extends HumlaNetworkListener implements AudioInput.Aud
     public static final int SAMPLE_RATE = 48000;
     public static final int FRAME_SIZE = SAMPLE_RATE/100;
     public static final int MAX_BUFFER_SIZE = 960;
-    private static final float MIN_TRANSMIT_AMPLITUDE_BOOST = 1.35f;
+    private static final float MIN_TRANSMIT_AMPLITUDE_BOOST = 1.50f;
+    private static final float TARGET_TRANSMIT_AVERAGE_LEVEL = 0.16f;
+    private static final float MAX_AUTOMATIC_TRANSMIT_BOOST = 3.0f;
 
     private final Context mContext;
     private final HumlaLogger mLogger;
@@ -127,7 +129,8 @@ public class AudioHandler extends HumlaNetworkListener implements AudioInput.Aud
         }
         mAudioSource = audioSource;
 
-        mInput = new AudioInput(this, mAudioSource, mSampleRate, mEchoCancellationMethod);
+        mInput = new AudioInput(this, mAudioSource, mSampleRate, mEchoCancellationMethod,
+                mPreprocessorEnabled);
         mOutput = new AudioOutput(mOutputListener);
     }
 
@@ -428,7 +431,9 @@ public class AudioHandler extends HumlaNetworkListener implements AudioInput.Aud
         if (talking) {
             // Boost/reduce amplitude based on user preference
             // TODO: perhaps amplify to the largest value that does not result in clipping.
-            float transmitAmplitudeBoost = Math.max(mAmplitudeBoost, MIN_TRANSMIT_AMPLITUDE_BOOST);
+            float transmitAmplitudeBoost = Math.max(
+                    mAmplitudeBoost,
+                    calculateAutomaticTransmitBoost(frame, frameSize));
             if (transmitAmplitudeBoost != 1.0f) {
                 for (int i = 0; i < frameSize; i++) {
                     // Java only guarantees the bounded preservation of sign in a narrowing
@@ -496,6 +501,33 @@ public class AudioHandler extends HumlaNetworkListener implements AudioInput.Aud
         synchronized (mOutput) {
             mOutput.setAllowedVoiceSession(session);
         }
+    }
+
+    private float calculateAutomaticTransmitBoost(short[] frame, int frameSize) {
+        if (frameSize <= 0) {
+            return MIN_TRANSMIT_AMPLITUDE_BOOST;
+        }
+
+        long sumAbs = 0;
+        int peak = 0;
+        for (int i = 0; i < frameSize; i++) {
+            int sample = Math.abs((int) frame[i]);
+            sumAbs += sample;
+            peak = Math.max(peak, sample);
+        }
+        if (peak == 0) {
+            return MIN_TRANSMIT_AMPLITUDE_BOOST;
+        }
+
+        float averageLevel = sumAbs / (float) frameSize / Short.MAX_VALUE;
+        float targetBoost = averageLevel > 0.0f
+                ? TARGET_TRANSMIT_AVERAGE_LEVEL / averageLevel
+                : MAX_AUTOMATIC_TRANSMIT_BOOST;
+        float headroomBoost = Short.MAX_VALUE / (float) peak;
+        float automaticBoost = Math.min(targetBoost, MAX_AUTOMATIC_TRANSMIT_BOOST);
+        automaticBoost = Math.max(MIN_TRANSMIT_AMPLITUDE_BOOST, automaticBoost);
+        automaticBoost = Math.min(automaticBoost, headroomBoost);
+        return Math.max(1.0f, automaticBoost);
     }
 
     /**

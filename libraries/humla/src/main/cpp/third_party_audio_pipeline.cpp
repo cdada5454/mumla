@@ -9,6 +9,8 @@ namespace {
 constexpr const char* kTag = "HumlaAudioPipeline";
 constexpr int32_t kChannels = 1;
 constexpr int32_t kRnnoiseFrameSize = 480;
+constexpr int kAgcTargetLevelDbfs = 3;
+constexpr int kAgcCompressionGainDb = 24;
 
 float pcmToFloat(int16_t sample) {
     return static_cast<float>(sample);
@@ -59,6 +61,8 @@ ThirdPartyAudioPipeline::ThirdPartyAudioPipeline(int32_t sampleRate)
                                    webrtc::AudioProcessing::kMono,
                                    webrtc::AudioProcessing::kMono);
         agcProcessing_->gain_control()->set_mode(webrtc::GainControl::kAdaptiveDigital);
+        agcProcessing_->gain_control()->set_target_level_dbfs(kAgcTargetLevelDbfs);
+        agcProcessing_->gain_control()->set_compression_gain_db(kAgcCompressionGainDb);
         agcProcessing_->gain_control()->Enable(true);
     }
 }

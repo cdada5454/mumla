@@ -7,7 +7,9 @@ internal object NativeAudioInput {
 
     @JvmStatic external fun nativeCreate(
         listener: AudioInput.AudioInputListener,
-        sampleRate: Int
+        sampleRate: Int,
+        audioSource: Int,
+        preprocessorEnabled: Boolean,
     ): Long
 
     @JvmStatic external fun nativeStart(handle: Long)

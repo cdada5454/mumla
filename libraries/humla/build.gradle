@@ -110,22 +110,28 @@ android {
         }
     }
 
-    // Generate legacy JavaCPP codec libraries before Java compilation and APK native-lib merging.
-    task ndkBuild(type: Exec) {
+    // Generate legacy JavaCPP codec libraries before AGP snapshots jniLibs.
+    def legacyCodecLibsDir = file('src/main/libs')
+    def legacyCodecObjDir = file("$buildDir/ndkBuild/obj")
+    def ndkBuildTask = tasks.register('ndkBuild', Exec) {
         def ndkExe = "$project.android.ndkDirectory/ndk-build"
         if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows()) {
           ndkExe += '.cmd'
         }
-        commandLine ndkExe, '-C', file('src/main/jni/').absolutePath
+        commandLine ndkExe,
+                '-C', file('src/main/jni/').absolutePath,
+                "NDK_LIBS_OUT=${legacyCodecLibsDir.absolutePath}",
+                "NDK_OUT=${legacyCodecObjDir.absolutePath}"
+        outputs.dir legacyCodecLibsDir
     }
 
     tasks.withType(JavaCompile).configureEach {
-        dependsOn ndkBuild
+        dependsOn ndkBuildTask
     }
 
     tasks.configureEach {
-        if (name.startsWith('merge') && name.endsWith('NativeLibs')) {
-            dependsOn ndkBuild
+        if (name.startsWith('merge') && (name.endsWith('JniLibFolders') || name.endsWith('NativeLibs'))) {
+            dependsOn ndkBuildTask
         }
     }
 

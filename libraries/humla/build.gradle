@@ -110,7 +110,7 @@ android {
         }
     }
 
-    // Trigger NDK build on java compilation task.
+    // Generate legacy JavaCPP codec libraries before Java compilation and APK native-lib merging.
     task ndkBuild(type: Exec) {
         def ndkExe = "$project.android.ndkDirectory/ndk-build"
         if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows()) {
@@ -119,8 +119,14 @@ android {
         commandLine ndkExe, '-C', file('src/main/jni/').absolutePath
     }
 
-    tasks.withType(JavaCompile) {
-        compileTask -> compileTask.dependsOn ndkBuild
+    tasks.withType(JavaCompile).configureEach {
+        dependsOn ndkBuild
+    }
+
+    tasks.configureEach {
+        if (name.startsWith('merge') && name.endsWith('NativeLibs')) {
+            dependsOn ndkBuild
+        }
     }
 
     lint {

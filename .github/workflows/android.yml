@@ -1,16 +1,9 @@
-name: Android release APKs
+name: Android release APK
 
 on:
-  push:
-    branches:
-      - main
-      - master
-    tags:
-      - 'v*'
   release:
     types:
       - published
-  pull_request:
   workflow_dispatch:
     inputs:
       release_tag:
@@ -23,7 +16,7 @@ permissions:
 
 jobs:
   build-release-apks:
-    name: Build armv7a and armv8a release APKs
+    name: Build release APK
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
@@ -154,13 +147,12 @@ jobs:
       - name: Check source tree does not contain prebuilt libraries
         run: ./gradlew --no-daemon checkNoPrebuiltLibraries
 
-      - name: Build FOSS release ABI APKs
+      - name: Build FOSS release APK
         shell: bash
         run: |
           ./gradlew --no-daemon :app:assembleFossRelease \
             -Pmumla.versionName="$RELEASE_VERSION_NAME" \
-            -Pmumla.versionCode="$RELEASE_VERSION_CODE" \
-            -Pmumla.enableAbiSplits=true
+            -Pmumla.versionCode="$RELEASE_VERSION_CODE"
 
       - name: Collect APKs
         shell: bash
@@ -173,10 +165,8 @@ jobs:
             exit 1
           fi
 
-          cp app/build/outputs/apk/foss/release/*armeabi-v7a-release.apk \
-            "artifacts/mumla-${RELEASE_VERSION_NAME}-armeabi-v7a-release.apk"
-          cp app/build/outputs/apk/foss/release/*arm64-v8a-release.apk \
-            "artifacts/mumla-${RELEASE_VERSION_NAME}-arm64-v8a-release.apk"
+          cp app/build/outputs/apk/foss/release/*-release.apk \
+            "artifacts/mumla-${RELEASE_VERSION_NAME}-release.apk"
           for apk in artifacts/*.apk; do
             "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$apk"
           done
@@ -186,7 +176,7 @@ jobs:
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mumla-${{ steps.metadata.outputs.version_name }}-release-apks
+          name: mumla-${{ steps.metadata.outputs.version_name }}-release-apk
           path: artifacts/
           if-no-files-found: error
 

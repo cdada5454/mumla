@@ -22,6 +22,7 @@ import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaRecorder
 import android.os.AsyncTask
+import androidx.core.content.ContextCompat
 import se.lublin.humla.HumlaService
 import se.lublin.humla.model.Server
 import se.lublin.mumla.BuildConfig
@@ -100,6 +101,6 @@ class ServerConnectTask(
 
     override fun onPostExecute(intent: Intent) {
         super.onPostExecute(intent)
-        context.startService(intent)
+        ContextCompat.startForegroundService(context, intent)
     }
 }

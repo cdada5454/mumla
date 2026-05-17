@@ -166,7 +166,9 @@ jobs:
             "artifacts/mumla-${RELEASE_VERSION_NAME}-armeabi-v7a-release.apk"
           cp app/build/outputs/apk/foss/release/*arm64-v8a-release.apk \
             "artifacts/mumla-${RELEASE_VERSION_NAME}-arm64-v8a-release.apk"
-          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose artifacts/*.apk
+          for apk in artifacts/*.apk; do
+            "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$apk"
+          done
           sha256sum artifacts/*.apk > artifacts/SHA256SUMS.txt
           ls -lh artifacts
 

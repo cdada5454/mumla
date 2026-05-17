@@ -40,6 +40,30 @@ jobs:
           git rev-parse HEAD
           git status --short
 
+      - name: Resolve release version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version_tag="${RELEASE_TAG}"
+          if [[ -z "$version_tag" || "$version_tag" == "main" || "$version_tag" == "master" ]]; then
+            version_tag="$(git describe --tags --match 'v[0-9]*.[0-9]*.[0-9]*' --abbrev=0 2>/dev/null || true)"
+          fi
+          if [[ -z "$version_tag" ]]; then
+            version_tag="v0.0.1"
+          fi
+          if [[ ! "$version_tag" =~ ^v[0-9]+[.][0-9]+[.][0-9]+([-.][0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Release version must look like v0.0.1, got '$version_tag'."
+            exit 1
+          fi
+
+          version_name="${version_tag#v}"
+          echo "RELEASE_TAG=$version_tag" >> "$GITHUB_ENV"
+          echo "APP_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
+          echo "APK_FILE_NAME=mumla-${version_tag}.apk" >> "$GITHUB_ENV"
+          echo "Resolved release tag: $version_tag"
+          echo "Resolved app versionName: $version_name"
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -130,28 +154,50 @@ jobs:
         shell: bash
         run: ./gradlew --no-daemon checkNoPrebuiltLibraries
 
-      - name: Build legacy native codecs
+      - name: Build all native libraries
         shell: bash
         run: |
           set -euo pipefail
-          ./gradlew --no-daemon :libraries:humla:ndkBuild
+          ./gradlew --no-daemon \
+            -Pmumla.versionName="$APP_VERSION_NAME" \
+            :libraries:humla:ndkBuild \
+            :libraries:humla:externalNativeBuildRelease
+
+      - name: Verify project native libraries before APK build
+        shell: bash
+        run: |
+          set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
           import sys
 
           abis = ("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-          libs = ("libjnicelt7.so", "libjnicelt11.so", "libjniopus.so", "libjnispeex.so")
-          root = Path("libraries/humla/src/main/libs")
-          missing = [str(root / abi / lib) for abi in abis for lib in libs if not (root / abi / lib).is_file()]
+          legacy_libs = ("libjnicelt7.so", "libjnicelt11.so", "libjniopus.so", "libjnispeex.so")
+          cmake_libs = ("libhumla_audioinput.so", "librnnoise.so", "libwebrtc_audio_processing.so")
+
+          legacy_root = Path("libraries/humla/src/main/libs")
+          humla_build_root = Path("libraries/humla/build")
+
+          missing = []
+          for abi in abis:
+              missing.extend(
+                  str(legacy_root / abi / lib)
+                  for lib in legacy_libs
+                  if not (legacy_root / abi / lib).is_file()
+              )
+              for lib in cmake_libs:
+                  if not any(humla_build_root.glob(f"**/{abi}/**/{lib}")):
+                      missing.append(f"{humla_build_root}/**/{abi}/**/{lib}")
+
           if missing:
-              print("::error::Missing native codec outputs:")
+              print("::error::Native library build did not produce all required runtime libraries:")
               print("\n".join(missing))
               sys.exit(1)
           PY
 
       - name: Build release APK
         shell: bash
-        run: ./gradlew --no-daemon :app:assembleRelease
+        run: ./gradlew --no-daemon -Pmumla.versionName="$APP_VERSION_NAME" :app:assembleRelease
 
       - name: Collect and verify APK
         id: apk
@@ -180,7 +226,12 @@ jobs:
           fi
 
           version_name="$(python3 -c 'import json; print(json.load(open("app/build/outputs/apk/release/output-metadata.json"))["elements"][0]["versionName"])')"
-          artifact_path="artifacts/mumla-${version_name}-release.apk"
+          if [[ "$version_name" != "$APP_VERSION_NAME" ]]; then
+            echo "::error::APK versionName '$version_name' does not match expected '$APP_VERSION_NAME'."
+            exit 1
+          fi
+
+          artifact_path="artifacts/${APK_FILE_NAME}"
           cp "$apk_path" "$artifact_path"
 
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$artifact_path"
@@ -190,28 +241,44 @@ jobs:
           import zipfile
 
           apk_path = sys.argv[1]
-          abis = ("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-          libs = ("libjnicelt7.so", "libjnicelt11.so", "libjniopus.so", "libjnispeex.so")
+          required_entries = (
+              "libandroidx.graphics.path.so",
+              "libc++_shared.so",
+              "libhumla_audioinput.so",
+              "libjnicelt7.so",
+              "libjnicelt11.so",
+              "libjniopus.so",
+              "libjnispeex.so",
+              "librnnoise.so",
+              "libwebrtc_audio_processing.so",
+          )
 
           with zipfile.ZipFile(apk_path) as apk:
               entries = set(apk.namelist())
 
-          missing = [f"lib/{abi}/{lib}" for abi in abis for lib in libs if f"lib/{abi}/{lib}" not in entries]
+          packaged_abis = sorted({name.split("/")[1] for name in entries if name.startswith("lib/") and name.endswith(".so")})
+          missing = [
+              f"lib/{abi}/{lib}"
+              for abi in packaged_abis
+              for lib in required_entries
+              if f"lib/{abi}/{lib}" not in entries
+          ]
           if missing:
-              print("::error::APK is missing required native codec libraries:")
+              print("::error::APK is missing required runtime native libraries:")
               print("\n".join(missing))
               sys.exit(1)
           PY
 
           sha256sum "$artifact_path" > artifacts/SHA256SUMS.txt
           echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+          echo "apk_file_name=$APK_FILE_NAME" >> "$GITHUB_OUTPUT"
           echo "APK_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
           ls -lh artifacts
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mumla-${{ steps.apk.outputs.version_name }}-release-apk
+          name: ${{ steps.apk.outputs.apk_file_name }}
           path: artifacts/
           if-no-files-found: error
 
@@ -223,8 +290,12 @@ jobs:
         run: |
           set -euo pipefail
           tag_version="${RELEASE_TAG#v}"
+          gh release delete-asset "$RELEASE_TAG" "mumla-v${tag_version}.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-arm64-v8a-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-armeabi-v7a-release.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-v${APK_VERSION_NAME}.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-arm64-v8a-release.apk" --yes || true
           gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-armeabi-v7a-release.apk" --yes || true
 
@@ -233,5 +304,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
-          name: Mumla ${{ steps.apk.outputs.version_name }}
+          name: Mumla v${{ steps.apk.outputs.version_name }}
           files: artifacts/*

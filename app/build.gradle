@@ -34,8 +34,6 @@ repositories {
 
 def signingFile = file 'signing.gradle'
 if (signingFile.exists()) apply from: signingFile
-def signingBetaFile = file 'signing-beta.gradle'
-if (signingBetaFile.exists()) apply from: signingBetaFile
 
 allprojects {
     tasks.withType(JavaCompile) {
@@ -93,56 +91,16 @@ android {
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
-    if (providers.gradleProperty("mumla.enableAbiSplits").map { it.toBoolean() }.getOrElse(false)) {
-        splits {
-            abi {
-                enable true
-                reset()
-                include "armeabi-v7a", "arm64-v8a"
-                universalApk false
-            }
-        }
-    }
-
-    flavorDimensions "release"
-    productFlavors {
-        goog {
-            dimension "release"
-            applicationId "se.lublin.mumla"
-        }
-        foss {
-            dimension "release"
-            applicationId "se.lublin.mumla"
-        }
-        donation {
-            dimension "release"
-            applicationId "se.lublin.mumla.donation"
-        }
-        beta {
-            dimension "release"
-            applicationId "se.lublin.mumla.beta"
-        }
-    }
-
     buildTypes {
-        // signingConfig beta will override
         release {
             if (android.hasProperty("signingConfigs")) {
                 if (signingConfigs.hasProperty("release")) {
                     signingConfig = signingConfigs.release
                 }
-                if (signingConfigs.hasProperty("beta")) {
-                    signingConfig = signingConfigs.beta
-                }
             }
         }
         debug {
             versionNameSuffix "-debug"
-            if (android.hasProperty("signingConfigs")) {
-                if (signingConfigs.hasProperty("beta")) {
-                    signingConfig = signingConfigs.beta
-                }
-            }
         }
     }
     lint {
@@ -153,16 +111,6 @@ android {
         ignoreWarnings = false
         quiet = false
     }
-    // betas may be released every minute
-    // TODO? dynamic stuff, have to rebuild a lot
-    applicationVariants.all { variant ->
-        if (variant.flavorName == "beta") {
-            variant.outputs.each { output ->
-                output.versionCodeOverride = System.currentTimeSeconds() / 60
-            }
-        }
-    }
-
 }
 
 dependencies {
@@ -180,6 +128,4 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'info.guardianproject.netcipher:netcipher:2.1.0'
     implementation 'com.google.zxing:core:3.4.1'
-
-    googImplementation 'com.android.billingclient:billing:7.1.1'
 }

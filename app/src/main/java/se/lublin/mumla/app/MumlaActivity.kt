@@ -705,10 +705,7 @@ class MumlaActivity : AppCompatActivity(),
             settings.setFirstRun(false)
             return
         }
-        var message = getString(R.string.first_run_generate_certificate)
-        if (BuildConfig.FLAVOR == "donation") {
-            message = getString(R.string.donation_thanks) + "\n\n" + message
-        }
+        val message = getString(R.string.first_run_generate_certificate)
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.first_run_generate_certificate_title)
             .setMessage(message)

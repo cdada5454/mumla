@@ -147,10 +147,10 @@ jobs:
       - name: Check source tree does not contain prebuilt libraries
         run: ./gradlew --no-daemon checkNoPrebuiltLibraries
 
-      - name: Build FOSS release APK
+      - name: Build release APK
         shell: bash
         run: |
-          ./gradlew --no-daemon :app:assembleFossRelease \
+          ./gradlew --no-daemon :app:assembleRelease \
             -Pmumla.versionName="$RELEASE_VERSION_NAME" \
             -Pmumla.versionCode="$RELEASE_VERSION_CODE"
 
@@ -160,12 +160,12 @@ jobs:
           set -euo pipefail
 
           mkdir -p artifacts
-          if find app/build/outputs/apk/foss/release -name '*-unsigned.apk' -print -quit | grep -q .; then
+          if find app/build/outputs/apk/release -name '*-unsigned.apk' -print -quit | grep -q .; then
             echo "::error::Unsigned APKs were produced. Refusing to upload install-broken artifacts."
             exit 1
           fi
 
-          cp app/build/outputs/apk/foss/release/*-release.apk \
+          cp app/build/outputs/apk/release/*-release.apk \
             "artifacts/mumla-${RELEASE_VERSION_NAME}-release.apk"
           for apk in artifacts/*.apk; do
             "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$apk"

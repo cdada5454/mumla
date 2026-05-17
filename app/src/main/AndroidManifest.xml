@@ -57,6 +57,11 @@
         android:localeConfig="@xml/local_config">
         <!-- requestLegacyExternalStorage still true: we keep using old code if Android < 30 -->
 
+        <provider
+            android:name="se.lublin.mumla.channel.ChannelSearchProvider"
+            android:authorities="se.lublin.mumla.channel.ChannelSearchProvider"
+            android:exported="false" />
+
         <activity
             android:name=".preference.SettingsActivity"
             android:exported="false">

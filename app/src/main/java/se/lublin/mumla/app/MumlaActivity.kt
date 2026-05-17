@@ -691,15 +691,6 @@ class MumlaActivity : AppCompatActivity(),
             .getString("member_avatar:$serverId:$identity", null)
     }
 
-    override fun onDonateClicked() {
-        val stringResId = resources.getIdentifier("donate_link_foss", "string", packageName)
-        if (stringResId != 0) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(stringResId)))
-            startActivity(intent)
-            drawerLayout.closeDrawers()
-        }
-    }
-
     private fun showFirstRunGuide() {
         if (settings.isUsingCertificate) {
             settings.setFirstRun(false)

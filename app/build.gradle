@@ -93,6 +93,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.debug
             if (android.hasProperty("signingConfigs")) {
                 if (signingConfigs.hasProperty("release")) {
                     signingConfig = signingConfigs.release

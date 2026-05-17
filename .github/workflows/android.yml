@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 jobs:
-  build-release-apks:
+  build-release-apk:
     name: Build release APK
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -30,7 +30,21 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.release_tag || github.event.release.tag_name || github.ref }}
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Show checked out revision
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Checked out branch: ${{ github.event.repository.default_branch }}"
+          git rev-parse HEAD
+          git status --short
+          if git grep -n -E "enableAbiSplits|splits[[:space:]]*\\{" -- app build.gradle settings.gradle gradle.properties; then
+            echo "::error::ABI split configuration is still present in the checked out source."
+            exit 1
+          fi
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -51,33 +65,6 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-
-      - name: Resolve release metadata
-        id: metadata
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if [[ "$GITHUB_REF_TYPE" == "tag" || "$GITHUB_EVENT_NAME" == "release" || -n "${{ inputs.release_tag }}" ]]; then
-            version_name="${RELEASE_TAG#v}"
-            if [[ "$version_name" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9]+))?$ ]]; then
-              major="${BASH_REMATCH[1]}"
-              minor="${BASH_REMATCH[2]}"
-              patch="${BASH_REMATCH[3]}"
-              build="${BASH_REMATCH[5]:-0}"
-              version_code=$((10#$major * 1000000 + 10#$minor * 10000 + 10#$patch * 100 + 10#$build))
-            else
-              version_code=$((3070300 + GITHUB_RUN_NUMBER))
-            fi
-          else
-            version_name="0.0.0-${GITHUB_RUN_NUMBER}"
-            version_code=$((3070300 + GITHUB_RUN_NUMBER))
-          fi
-
-          echo "RELEASE_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
-          echo "RELEASE_VERSION_CODE=$version_code" >> "$GITHUB_ENV"
-          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
-          echo "version_code=$version_code" >> "$GITHUB_OUTPUT"
 
       - name: Configure APK signing
         shell: bash
@@ -149,24 +136,38 @@ jobs:
 
       - name: Build release APK
         shell: bash
-        run: |
-          ./gradlew --no-daemon :app:assembleRelease \
-            -Pmumla.versionName="$RELEASE_VERSION_NAME" \
-            -Pmumla.versionCode="$RELEASE_VERSION_CODE"
+        run: ./gradlew --no-daemon :app:assembleRelease
 
       - name: Collect APKs
+        id: apk
         shell: bash
         run: |
           set -euo pipefail
 
           mkdir -p artifacts
+          if find app/build/outputs/apk -type f \( -name '*arm64-v8a-release.apk' -o -name '*armeabi-v7a-release.apk' \) -print | grep -q .; then
+            echo "::error::ABI split APKs were produced. The release build must produce one universal APK only."
+            find app/build/outputs/apk -type f -name '*.apk' -print
+            exit 1
+          fi
+
           if find app/build/outputs/apk/release -name '*-unsigned.apk' -print -quit | grep -q .; then
             echo "::error::Unsigned APKs were produced. Refusing to upload install-broken artifacts."
             exit 1
           fi
 
-          cp app/build/outputs/apk/release/*-release.apk \
-            "artifacts/mumla-${RELEASE_VERSION_NAME}-release.apk"
+          apk_path="$(find app/build/outputs/apk/release -maxdepth 1 -type f -name '*-release.apk' -print -quit)"
+          if [[ -z "$apk_path" ]]; then
+            echo "::error::No signed release APK was produced."
+            find app/build/outputs/apk -type f -name '*.apk' -print
+            exit 1
+          fi
+
+          version_name="$(python3 -c 'import json; print(json.load(open("app/build/outputs/apk/release/output-metadata.json"))["elements"][0]["versionName"])')"
+          echo "APK_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
+          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+
+          cp "$apk_path" "artifacts/mumla-${version_name}-release.apk"
           for apk in artifacts/*.apk; do
             "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose "$apk"
           done
@@ -176,14 +177,26 @@ jobs:
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mumla-${{ steps.metadata.outputs.version_name }}-release-apk
+          name: mumla-${{ steps.apk.outputs.version_name }}-release-apk
           path: artifacts/
           if-no-files-found: error
+
+      - name: Remove old ABI release assets
+        if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || startsWith(inputs.release_tag, 'v') }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          tag_version="${RELEASE_TAG#v}"
+          gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-arm64-v8a-release.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-${tag_version}-armeabi-v7a-release.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-arm64-v8a-release.apk" --yes || true
+          gh release delete-asset "$RELEASE_TAG" "mumla-${APK_VERSION_NAME}-armeabi-v7a-release.apk" --yes || true
 
       - name: Publish GitHub release assets
         if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || startsWith(inputs.release_tag, 'v') }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
-          name: Mumla ${{ steps.metadata.outputs.version_name }}
+          name: Mumla ${{ steps.apk.outputs.version_name }}
           files: artifacts/*

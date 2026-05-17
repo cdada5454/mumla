@@ -70,7 +70,6 @@ class DrawerAdapter(
     interface DrawerSelectionListener {
         fun onDrawerRowClicked(id: Int)
         fun onDrawerProfileClicked()
-        fun onDonateClicked()
     }
 
     open class DrawerRow(@JvmField val id: Int, @JvmField val title: String)
@@ -113,8 +112,6 @@ class DrawerAdapter(
 
     private fun render() {
         val currentListener = listener ?: return
-        val donateLinkResId = context.resources.getIdentifier("donate_link_foss", "string", context.packageName)
-        val showDonate = donateLinkResId != 0
         val colors = resolveDrawerColors(context)
         composeView?.setBackgroundColor(colors.backgroundArgb)
         composeView?.setContent {
@@ -127,15 +124,13 @@ class DrawerAdapter(
                     }
                 },
                 connected = provider.isConnected(),
-                showDonate = showDonate,
                 profileName = provider.getDrawerProfileName(),
                 avatarTexture = provider.getDrawerAvatarTexture(),
                 avatarUri = provider.getDrawerAvatarUri(),
                 selectedItemId = selectedItemId,
                 colors = colors,
                 onProfileClick = { currentListener.onDrawerProfileClicked() },
-                onRowClick = { currentListener.onDrawerRowClicked(it.id) },
-                onDonateClick = { currentListener.onDonateClicked() }
+                onRowClick = { currentListener.onDrawerRowClicked(it.id) }
             )
         }
     }
@@ -160,15 +155,13 @@ class DrawerAdapter(
 private fun DrawerContent(
     rows: List<DrawerAdapter.DrawerRow>,
     connected: Boolean,
-    showDonate: Boolean,
     profileName: String,
     avatarTexture: ByteArray?,
     avatarUri: String?,
     selectedItemId: Int,
     colors: DrawerColors,
     onProfileClick: () -> Unit,
-    onRowClick: (DrawerAdapter.DrawerRow) -> Unit,
-    onDonateClick: () -> Unit
+    onRowClick: (DrawerAdapter.DrawerRow) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -186,18 +179,6 @@ private fun DrawerContent(
             onClick = onProfileClick
         )
         Spacer(modifier = Modifier.height(35.dp))
-        if (showDonate) {
-            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
-                DrawerActionRow(
-                    title = stringResource(R.string.donate_foss),
-                    icon = R.drawable.ic_action_favourite_on,
-                    enabled = true,
-                    selected = false,
-                    colors = colors,
-                    onClick = onDonateClick
-                )
-            }
-        }
         rows.forEach { row ->
             Box(modifier = Modifier.padding(horizontal = 10.dp)) {
                 DrawerMenuRow(

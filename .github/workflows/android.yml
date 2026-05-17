@@ -6,16 +6,12 @@ on:
       - main
       - master
     tags:
-      - v0.0.1
+      - 'v*'
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: write
-
-env:
-  RELEASE_VERSION_NAME: v0.0.1
-  RELEASE_VERSION_CODE: 1
 
 jobs:
   build-release-apks:
@@ -52,11 +48,50 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Configure release signing
-        if: ${{ env.ANDROID_KEYSTORE_BASE64 != '' }}
+      - name: Resolve release metadata
+        id: metadata
+        shell: bash
         run: |
-          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > app/release.jks
-          cat > app/signing.gradle <<'EOF'
+          set -euo pipefail
+
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            version_name="${GITHUB_REF_NAME#v}"
+            if [[ "$version_name" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9]+))?$ ]]; then
+              major="${BASH_REMATCH[1]}"
+              minor="${BASH_REMATCH[2]}"
+              patch="${BASH_REMATCH[3]}"
+              build="${BASH_REMATCH[5]:-0}"
+              version_code=$((10#$major * 1000000 + 10#$minor * 10000 + 10#$patch * 100 + 10#$build))
+            else
+              version_code=$((3070300 + GITHUB_RUN_NUMBER))
+            fi
+          else
+            version_name="0.0.0-${GITHUB_RUN_NUMBER}"
+            version_code=$((3070300 + GITHUB_RUN_NUMBER))
+          fi
+
+          echo "RELEASE_VERSION_NAME=$version_name" >> "$GITHUB_ENV"
+          echo "RELEASE_VERSION_CODE=$version_code" >> "$GITHUB_ENV"
+          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+          echo "version_code=$version_code" >> "$GITHUB_OUTPUT"
+
+      - name: Configure APK signing
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          has_release_key=false
+          if [[ -n "${ANDROID_KEYSTORE_BASE64:-}" || -n "${ANDROID_KEYSTORE_PASSWORD:-}" || -n "${ANDROID_KEY_ALIAS:-}" || -n "${ANDROID_KEY_PASSWORD:-}" ]]; then
+            if [[ -z "${ANDROID_KEYSTORE_BASE64:-}" || -z "${ANDROID_KEYSTORE_PASSWORD:-}" || -z "${ANDROID_KEY_ALIAS:-}" || -z "${ANDROID_KEY_PASSWORD:-}" ]]; then
+              echo "::error::ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, and ANDROID_KEY_PASSWORD must be set together."
+              exit 1
+            fi
+            has_release_key=true
+          fi
+
+          if [[ "$has_release_key" == "true" ]]; then
+            printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > app/release.jks
+            cat > app/signing.gradle <<'EOF'
           android {
               signingConfigs {
                   release {
@@ -68,11 +103,48 @@ jobs:
               }
           }
           EOF
+            echo "SIGNING_MODE=release" >> "$GITHUB_ENV"
+          else
+            keytool -genkeypair \
+              -keystore app/ci-release.jks \
+              -storepass android \
+              -alias ci-release \
+              -keypass android \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Mumla CI,O=Mumla,C=US"
+            cat > app/signing.gradle <<'EOF'
+          android {
+              signingConfigs {
+                  release {
+                      storeFile file("ci-release.jks")
+                      storePassword "android"
+                      keyAlias "ci-release"
+                      keyPassword "android"
+                  }
+              }
+          }
+          EOF
+            echo "SIGNING_MODE=ci" >> "$GITHUB_ENV"
+          fi
+
+      - name: Require release signing for tag releases
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$SIGNING_MODE" != "release" ]]; then
+            echo "::error::Tag releases must be signed with repository secrets. Configure ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, and ANDROID_KEY_PASSWORD."
+            exit 1
+          fi
 
       - name: Check source tree does not contain prebuilt libraries
         run: ./gradlew --no-daemon checkNoPrebuiltLibraries
 
       - name: Build FOSS release ABI APKs
+        shell: bash
         run: |
           ./gradlew --no-daemon :app:assembleFossRelease \
             -Pmumla.versionName="$RELEASE_VERSION_NAME" \
@@ -80,26 +152,35 @@ jobs:
             -Pmumla.enableAbiSplits=true
 
       - name: Collect APKs
+        shell: bash
         run: |
+          set -euo pipefail
+
           mkdir -p artifacts
-          cp app/build/outputs/apk/foss/release/*armeabi-v7a*.apk \
+          if find app/build/outputs/apk/foss/release -name '*-unsigned.apk' -print -quit | grep -q .; then
+            echo "::error::Unsigned APKs were produced. Refusing to upload install-broken artifacts."
+            exit 1
+          fi
+
+          cp app/build/outputs/apk/foss/release/*armeabi-v7a-release.apk \
             "artifacts/mumla-${RELEASE_VERSION_NAME}-armeabi-v7a-release.apk"
-          cp app/build/outputs/apk/foss/release/*arm64-v8a*.apk \
+          cp app/build/outputs/apk/foss/release/*arm64-v8a-release.apk \
             "artifacts/mumla-${RELEASE_VERSION_NAME}-arm64-v8a-release.apk"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose artifacts/*.apk
           sha256sum artifacts/*.apk > artifacts/SHA256SUMS.txt
           ls -lh artifacts
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mumla-${{ env.RELEASE_VERSION_NAME }}-release-apks
+          name: mumla-${{ steps.metadata.outputs.version_name }}-release-apks
           path: artifacts/
           if-no-files-found: error
 
       - name: Publish GitHub release assets
-        if: ${{ github.ref == 'refs/tags/v0.0.1' }}
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.0.1
-          name: Mumla v0.0.1
+          tag_name: ${{ github.ref_name }}
+          name: Mumla ${{ steps.metadata.outputs.version_name }}
           files: artifacts/*
